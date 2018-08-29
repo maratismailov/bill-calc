@@ -1,0 +1,69 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.Plus {
+  width: 89px;
+  height: 89px;
+  padding: 10px 16px;
+  font-size: 35px;
+  line-height: 1.33;
+  border-radius: 50%;
+  background-color: lightgreen;
+  border: none;
+}
+
+.Add-check {
+  width: 259px;
+  height: 89px;
+  padding: 10px 16px;
+  font-size: 35px;
+  line-height: 1.33;
+  border-radius: 15px;
+  background-color: lightgreen;
+  border: none;
+  margin: 2%;
+}
+
+.Checks-grid {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-rows: 50fr, 30fr;
+  grid-template-columns: 200px, 200px;
+  grid-template-areas:
+    'Check'
+    'Check'
+    'Check'
+}
+
+.Check {
+  display: grid;
+  grid-area: "content";
+  background-color: #FFF;
+  padding: 20px;
+}

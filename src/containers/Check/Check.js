@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Member from './Member/Member';
-import '../../App.css';
+// import '../../App.css';
 
 
 class Check extends Component {
     render() {
         return (
-            <div className='Checks-grid'>
+            <div className='Members-grid'>
                  <Member/>
                  <Member/>
                  <Member/>

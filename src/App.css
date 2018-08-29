@@ -62,8 +62,46 @@
 }
 
 .Check {
-  display: grid;
-  grid-area: "content";
+  /* display: grid; */
+  grid-area: "check";
   background-color: #FFF;
   padding: 20px;
+}
+
+.Dishes-grid {
+  display: grid;
+  grid-gap: 8px;
+  /* grid-template-rows: 50fr, 30fr; */
+  /* grid-template-columns: 200px, 200px; */
+  grid-template-areas:
+  'Dish'
+  'Dish'
+  'Dish'
+  
+  
+}
+
+.Members-grid {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-rows: 50fr, 30fr;
+  grid-template-columns: 200px, 200px;
+  grid-template-areas:
+  'Member'
+  'Member'
+  'Member'
+}
+
+.Member {
+  /* display: grid; */
+  grid-area: Member;
+  /* background-color: #FFF;
+  padding: 20px; */
+}
+
+
+
+.Dish {
+  /* display: grid; */
+  grid-area: Dish;
 }

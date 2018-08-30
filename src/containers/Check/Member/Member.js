@@ -7,13 +7,13 @@ class Member extends Component {
     render() {
         return (
             <div className='Dishes-grid'>
-                 <div className= 'Dish'>
+                 <div className= 'Dish1'>
                  <Dish/>
                  </div>
-                 <div className= 'Dish'>
+                 <div className= 'Dish2'>
                  <Dish/>
                  </div>
-                 <div className= 'Dish'>
+                 <div className= 'Dish3'>
                  <Dish/>
                  </div>
             </div>

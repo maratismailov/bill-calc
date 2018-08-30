@@ -16,7 +16,7 @@ class Dish extends Component {
                     onChange={this.props.changed}
                     value={this.props.value}
                     {...this.props}
-                    placeholder='Amount'
+                    placeholder='Price'
                 />
             </div>
 

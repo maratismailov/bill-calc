@@ -74,9 +74,7 @@
   /* grid-template-rows: 50fr, 30fr; */
   /* grid-template-columns: 200px, 200px; */
   grid-template-areas:
-  'Dish'
-  'Dish'
-  'Dish'
+  'Dish1 Dish2 Dish3'  
   
   
 }
@@ -101,7 +99,17 @@
 
 
 
-.Dish {
+.Dish1 {
   /* display: grid; */
-  grid-area: Dish;
+  grid-area: Dish1;
+}
+
+.Dish2 {
+  /* display: grid; */
+  grid-area: Dish2;
+}
+
+.Dish3 {
+  /* display: grid; */
+  grid-area: Dish3;
 }

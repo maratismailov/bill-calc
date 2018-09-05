@@ -1,7 +1,8 @@
 const initialState = {
     checks: [],
     check: [],
-    members: []
+    // members: [],
+    member: []
 }
 const reducer = (state = initialState, action) => {
     // console.log(action.allText)
@@ -9,7 +10,15 @@ const reducer = (state = initialState, action) => {
         case 'ADD_CHECK':
             return {
                 ...state,
-                checks: [...state.checks, initialState.check]
+                checks: [...state.checks, state.check],
+                // check: [ ...state.check, initialState.members]
+            }
+
+        case 'ADD_MEMBER':
+            return {
+                ...state,
+                check: [...state.check, state.member],
+                // check: [ ...state.check, initialState.members]
             }
 
     };

@@ -1,0 +1,13 @@
+app
+    [checks]
+
+    checks
+        [check, check, ...]
+
+        check[member, member,..., sharedFood, tips]
+
+            member
+                [dish, dish, ..., sharedFood?, tips?]
+
+                dish
+                    [name, price]

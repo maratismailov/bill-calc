@@ -3,14 +3,18 @@ import { Route, Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Check from './Check/Check';
 
+var id = 0;
+
 
 class Checks extends Component {
 
-    addCheckHandler = () => {
-        this.props.addCheckToStore()
+    addCheckHandler = (id) => {
+        this.props.addCheckToStore(this.check);
+        id++;
     }
 
     render() {
+        
         return (
             <div>
                 <Route path='/' exact render={() =>
@@ -24,12 +28,12 @@ class Checks extends Component {
                             {/* Add check */}
                         </button>
                     </div>} />
-                <Route path='/check' exact component={Check}  />
+                {/* <Route path='/check' exact component={Check}  /> */}
 
-                {this.props.checks.map(() => {
+                {this.props.checks.map((index) => {
                     return (
-                        <div>
-                            {/* <Check params={this.props.check} /> */}
+                        <div key={index}>
+                            <Check params={this.props.check} />
                         </div>
                     );
                 })}
@@ -43,15 +47,15 @@ class Checks extends Component {
 const MapStateToProps = state => {
     return {
         checks: state.checks,
-        check: state.check
+        check: state.check,
+        members: state.members
 
     };
 };
 
 const MapDispatchToProps = dispatch => {
     return {
-        error: () => dispatch({ type: 'IS_ERROR' }),
-        addCheckToStore: () => dispatch({ type: 'ADD_CHECK' })
+        addCheckToStore: (id) => dispatch({ type: 'ADD_CHECK', payload: id})
 
     };
 };

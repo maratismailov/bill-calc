@@ -36,6 +36,9 @@ class Member extends Component {
 
 const MapStateToProps = state => {
     return {
+        checks: state.checks,
+        check: state.check,
+        members: state.members
 
     };
 };

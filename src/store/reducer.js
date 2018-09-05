@@ -2,27 +2,27 @@ const initialState = {
     checks: [],
     check: [],
     // members: [],
-    member: []
+    member: [],
+    checkId: 0
 }
 const reducer = (state = initialState, action) => {
-    // console.log(action.allText)
+    // console.log(state.checks)
     switch (action.type) {
         case 'ADD_CHECK':
             return {
                 ...state,
-                checks: [...state.checks, state.check],
-                // check: [ ...state.check, initialState.members]
+                checks: state.checks.concat({date: new Date(), id: state.checkId, check: action.check}),
+                // checkId:  state.checkId + 1,
             }
 
         case 'ADD_MEMBER':
             return {
                 ...state,
-                check: [...state.check, state.member],
-                // check: [ ...state.check, initialState.members]
+                checks: state.checks[0].check.concat({member: action.member})
+                // checks[0]: state.checks[0].check.concat({member: action.member})
             }
 
     };
-
     return state;
 };
 

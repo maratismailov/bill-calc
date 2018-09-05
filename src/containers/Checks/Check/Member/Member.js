@@ -22,12 +22,12 @@ class Member extends Component {
                  <div className= 'Dish1'>
                  <Dish/>
                  </div>
-                 <div className= 'Dish2'>
+                 {/* <div className= 'Dish2'>
                  <Dish/>
                  </div>
                  <div className= 'Dish3'>
                  <Dish/>
-                 </div>
+                 </div> */}
             </div>
 
         );

@@ -14,33 +14,23 @@ class Check extends Component {
 
     render() {
         return (
-            <div>
+            <div key={this.props.checkId}>
                 <Route path='/check' exact render={() =>
                     <div>
                         <h1 className='App'>Check</h1>
                         <button
-                            className='Add-check'
-                            // onClick={this.addCheckHandler}
-                        >
-                        
-                            {/* <a href='/check'>Back to checks</a> */}
+                            className='Add-check'>
                             <Link to='/'>Back to checks</Link>
-                            {/* Add check */}
                         </button>
-
                         <button
                             className='Add-check'
-                            onClick={this.addMemberHandler}
-                        >
-                        
-                            {/* <a href='/check'>Back to checks</a> */}
+                            onClick={this.addMemberHandler}>
                             Add member
-                            {/* Add check */}
                         </button>
                         <div className='Members-grid'>
-                            {this.props.check.map(() => {
+                            {this.props.check.map((index) => {
                                 return (
-                                    <div>
+                                    <div key={index}>
                                         <Member params={this.props.member} />
                                     </div>
                                 );
@@ -57,17 +47,24 @@ class Check extends Component {
     }
 }
 
+const singleMember = [
+    {
+        dish: 'dishName'
+    }
+
+]
+
 const MapStateToProps = state => {
     return {
         member: state.member,
         check: state.check,
-
+        checkId: state.checkId
     };
 };
 
 const MapDispatchToProps = dispatch => {
     return {
-        addMemberToStore: () => dispatch({ type: 'ADD_MEMBER' })
+        addMemberToStore: () => dispatch({ type: 'ADD_MEMBER', member: singleMember })
     };
 };
 

@@ -29,9 +29,11 @@ const reducer = (state = initialState, action) => {
             }
 
         case 'ADD_MEMBER':
-            console.log(state.checkId-1)
+            // console.log(state.checkId-1)
+            // console.log(state.checks[state.checkId-1])
             const newArray = state.checks;
-            newArray[state.checkId-1].members.push({ dish: action.member })
+            newArray[state.checkId-1].members.push({ dish: action.member });
+            console.log(newArray[state.checkId-1])
             return {
                 ...state,
                 checks: newArray

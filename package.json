@@ -1,5 +1,6 @@
 {
   "name": "bill-calc",
+  "homepage": "https://billcalc.netlify.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

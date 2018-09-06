@@ -8,12 +8,15 @@ var id = 0;
 
 class Checks extends Component {
 
+
     // addCheckHandler = (id) => {
     //     this.props.addCheckToStore(this.singleCheck);
     //     id++;
     // }
 
     render() {
+        // this.props.checks[0] &&
+        // console.log(this.props.checks[0].id);
         return (
             <div>
                 <Route path='/' exact render={() =>
@@ -32,7 +35,7 @@ class Checks extends Component {
                 {this.props.checks.map((index) => {
                     return (
                         <div key={index}>
-                            <Check params={this.props.check} />
+                            <Check params={this.props.checks} />
                         </div>
                     );
                 })}
@@ -43,15 +46,23 @@ class Checks extends Component {
     }
 }
 
+// const singleCheck = [
+//     {
+//         member: [
+//             {
+//                 dish: 'dishName0'
+//             }
+//         ]
+
+//     }
+// ]
+
 const singleCheck = [
+
     {
-        member: [
-            {
-                dish: 'dishName'
-            }
-        ]
-            
+        dish: 'dishName1'
     }
+
 ]
 
 const MapStateToProps = state => {
@@ -66,7 +77,7 @@ const MapStateToProps = state => {
 
 const MapDispatchToProps = dispatch => {
     return {
-        onAddCheckToStore: () => dispatch({ type: 'ADD_CHECK', check: singleCheck})
+        onAddCheckToStore: () => dispatch({ type: 'ADD_CHECK', check: singleCheck })
 
     };
 };

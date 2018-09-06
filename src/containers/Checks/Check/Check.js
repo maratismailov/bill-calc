@@ -28,10 +28,10 @@ class Check extends Component {
                             Add member
                         </button>
                         <div className='Members-grid'>
-                            {this.props.check.map((index) => {
+                            {this.props.checks.map((index) => {
                                 return (
                                     <div key={index}>
-                                        <Member params={this.props.member} />
+                                        <Member params={this.props.checks} />
                                     </div>
                                 );
                             })}
@@ -49,7 +49,7 @@ class Check extends Component {
 
 const singleMember = [
     {
-        dish: 'dishName'
+        dish: 'dishName1'
     }
 
 ]
@@ -57,7 +57,7 @@ const singleMember = [
 const MapStateToProps = state => {
     return {
         member: state.member,
-        check: state.check,
+        checks: state.checks,
         checkId: state.checkId
     };
 };

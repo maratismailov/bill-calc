@@ -1,20 +1,7 @@
-const initialState = {
-    // checks: [],
-    checks: [
-        {
-            date: 'init',
-            id: 'initId',
-            member: [
-                {
-                    dish: 'dishName0'
-                }
-            ]
+import Check from "../containers/Checks/Check/Check";
 
-        }
-    ],
-    // check: [],
-    // members: [],
-    // member: [],
+const initialState = {
+    checks: [],
     checkId: 0
 }
 const reducer = (state = initialState, action) => {
@@ -23,40 +10,19 @@ const reducer = (state = initialState, action) => {
         case 'ADD_CHECK':
             return {
                 ...state,
-                checks: state.checks.concat({ date: new Date(), id: state.checkId, member: action.check }),
-                // checks: state.checks.concat({date: new Date(), id: state.checkId}, action.check),
-
-                // checks: action.check,
+                checks: state.checks.concat({ date: new Date(), id: state.checkId, members: action.check }),
                 checkId: state.checkId + 1,
             }
 
         case 'ADD_MEMBER':
-
-
-            const remappedChecks = state.checks.map((checks, index) => {
-                if (index === 0) {
-                    return {
-                        ...checks.member,
-                        member: action.member,
-                    };
-                }
-                return checks;
-            })
+            console.log(state.checks[0].members)
+            const newArray = state.checks;
+            newArray[state.checkId-1].members.push({ dish: action.member })
             return {
                 ...state,
-                checks: remappedChecks,
+                checks: newArray
+                // checks: remappedChecks,
             }
-
-        // return {
-        // ...state,
-        // ...state.checks,
-        // ...state.checks[state.checkId-1].check,
-        // checks: state.checks[state.checkId-1]&& state.checks[state.checkId-1].check && state.checks[state.checkId-1].member.concat({member: action.member})
-        // checks: state.checks[0].check.concat({member: action.member}),
-        // checks: state.checks[state.checkId-1].check.concat({member: action.member}),
-        // checks: state.checks[state.checkId-1].member.concat({dish: action.member}),
-        // }
-
     };
     return state;
 };

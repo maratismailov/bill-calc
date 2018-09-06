@@ -28,7 +28,7 @@ class Check extends Component {
                             Add member
                         </button>
                         <div className='Members-grid'>
-                            {this.props.checks.map((index) => {
+                            {this.props.checks[this.props.checkId-1].members.map((index) => {
                                 return (
                                     <div key={index}>
                                         <Member params={this.props.checks} />
@@ -47,12 +47,11 @@ class Check extends Component {
     }
 }
 
-const singleMember = [
-    {
-        dish: 'dishName1'
-    }
+const singleMember = 
+     'dishNameAction'
+    
 
-]
+
 
 const MapStateToProps = state => {
     return {

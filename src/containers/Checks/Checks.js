@@ -58,11 +58,12 @@ class Checks extends Component {
 // ]
 
 const singleCheck = [
-
+    // {
+    //     member: [{ dish: 'dishName1' }]
+    // }
     {
-        dish: 'dishName1'
+        dish: 'dishNameAction'
     }
-
 ]
 
 const MapStateToProps = state => {

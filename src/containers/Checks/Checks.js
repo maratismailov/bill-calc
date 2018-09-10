@@ -3,7 +3,7 @@ import { Route, Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Check from './Check/Check';
 
-var id = 0;
+// var id = 0;
 
 
 class Checks extends Component {
@@ -32,10 +32,10 @@ class Checks extends Component {
                     </div>} />
                 {/* <Route path='/check' exact component={Check}  /> */}
 
-                {this.props.checks.map((index) => {
+                {this.props.checks.map(strChecks => {
                     return (
-                        <div key={index}>
-                            <Check params={this.props.checks} />
+                        <div key={strChecks.id}>
+                            <Check  params={this.props.checks} />
                         </div>
                     );
                 })}
@@ -62,7 +62,8 @@ const singleCheck = [
     //     member: [{ dish: 'dishName1' }]
     // }
     {
-        dish: 'dishNameAction'
+        dish: 'dishNameAction',
+        memberId: 0
     }
 ]
 
@@ -71,7 +72,8 @@ const MapStateToProps = state => {
         checks: state.checks,
         check: state.check,
         members: state.members,
-        checkId: state.checkId
+        checkId: state.checkId,
+        memberId: state.memberId
 
     };
 };

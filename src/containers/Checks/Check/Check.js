@@ -14,7 +14,7 @@ class Check extends Component {
 
     render() {
         return (
-            <div key={this.props.checkId}>
+            <div>
                 <Route path='/check' exact render={() =>
                     <div>
                         <h1 className='App'>Check</h1>
@@ -28,10 +28,11 @@ class Check extends Component {
                             Add member
                         </button>
                         <div className='Members-grid'>
-                            {this.props.checks[this.props.checkId-1].members.map((index) => {
+                            {this.props.checks[this.props.checkId-1].members.map(strMembers=> {
                                 return (
-                                    <div key={index}>
+                                    <div key={strMembers.membersId}>
                                         <Member params={this.props.checks} />
+                                        <h>{strMembers.memberId}</h>
                                     </div>
                                 );
                             })}
@@ -57,7 +58,8 @@ const MapStateToProps = state => {
     return {
         member: state.member,
         checks: state.checks,
-        checkId: state.checkId
+        checkId: state.checkId,
+        memberId: state.memberId
     };
 };
 

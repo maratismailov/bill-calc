@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Link } from "react-router-dom";
-import Member from "./Member/Member";
+import Member from "../Check/Member/Member"
 import Checks from "../Checks";
 // import '../../App.css';
 
@@ -14,17 +14,10 @@ class Check extends Component {
     return (
       <div>
         <Route
-          path="/check"
+          path="/"
           exact
           render={() => (
             <div>
-              <h1 className="App">Check</h1>
-              <button className="Add-check">
-                <Link to="/">Back to checks</Link>
-              </button>
-              <button className="Add-check" onClick={this.addMemberHandler}>
-                Add member
-              </button>
               <div className="Members-grid">
                 {this.props.checks[this.props.checkId - 1].members.map(
                   strMembers => {

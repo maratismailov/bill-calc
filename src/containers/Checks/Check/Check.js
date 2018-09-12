@@ -27,11 +27,11 @@ class Check extends Component {
               </button>
               <div className="Members-grid">
                 {this.props.checks[this.props.checkId - 1].members.map(
-                  strMembers => {
+                  member => {
                     return (
-                      <div key={strMembers.membersId}>
+                      <div key={member.membersId}>
                         <Member params={this.props.checks} />
-                        <h>{strMembers.memberId}</h>
+                        <div>{member.memberId}</div>
                       </div>
                     );
                   }

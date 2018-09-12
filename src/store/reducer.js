@@ -11,17 +11,15 @@ const reducer = (state = initialState, action) => {
     case "ADD_CHECK":
       // const remappedChecks = JSON.parse(JSON.stringify(state.checks));
 
-      const remappedChecks = state.checks.map((checks, index) => {
-        const remappedMembersTemp = state.checks[index].members.map(members => {
+      const remappedChecks = state.checks.map((check, checkIndex) => {
+        if (checkIndex === state.checkId - 1) {
           return {
-            ...members
+            ...check,
+            members: [...check.members]
           };
-        });
-        return {
-          ...checks
-        };
+        }
+        return check;
       });
-
       remappedChecks.push({
         date: new Date(),
         id: state.checkId,
@@ -34,20 +32,20 @@ const reducer = (state = initialState, action) => {
       };
 
     case "ADD_MEMBER":
-      // const remappedMembers = JSON.parse(JSON.stringify(state.checks));
-      const remappedMembers = state.checks.map((checks, index) => {
-        const remappedMembersTemp = state.checks[index].members.map(members => {
+      const remappedMembers = state.checks.map((check, checkIndex) => {
+        if (checkIndex === state.checkId - 1) {
           return {
-            ...members
+            ...check,
+            members: [
+              ...check.members,
+              {
+                dish: action.member,
+                memberId: state.memberId
+              }
+            ]
           };
-        });
-        return {
-          ...checks
-        };
-      });
-      remappedMembers[state.checkId - 1].members.push({
-        dish: action.member,
-        memberId: state.memberId
+        }
+        return check;
       });
 
       return {

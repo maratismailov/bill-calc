@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { Route, Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Check from "./Check/Check";
-import CheckList from "./ChecksList/CheckList";
+import ChecksList from "./ChecksList/ChecksList";
 
 // var id = 0;
 
 class Checks extends Component {
   addCheckHandler = id => {
     this.props.onAddCheckToStore(this.singleCheck);
-    console.log(this.props.checks[this.props.checkId-1])
+    console.log(this.props.checks[this.props.checkId - 1]);
   };
 
   render() {
@@ -32,15 +32,33 @@ class Checks extends Component {
         />
         {/* <Route path='/check' exact component={Check}  /> */}
 
-        {this.props.checks.map(strChecks => {
-          return (
-            <div key={strChecks.id}>
-              <Check params={this.props.checks[this.props.checkId]} />
-             {/* {this.props.checks[this.props.checkId]} */}
+        <Route
+          path="/check"
+          exact
+          render={() => (
+            <div>
+              <Check params={this.props.checks} />
+              );
             </div>
-          );
-        })}
-        {/* <Check/> */}
+          )}
+        />
+
+        <Route
+          path="/"
+          exact
+          render={() => (
+            <div>
+              {this.props.checks.map((check, index) => {
+                return (
+                  <div key={check.id}>
+                    {/* <Check params={this.props.checks} /> */}
+                    <ChecksList date={this.props.checks[index].date.toString()} />
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        />
       </div>
     );
   }

@@ -30,8 +30,8 @@ class Check extends Component {
                   member => {
                     return (
                       <div key={member.membersId}>
+                        <div>Member {member.memberId}</div>
                         <Member params={this.props.checks} />
-                        <div>{member.memberId}</div>
                       </div>
                     );
                   }

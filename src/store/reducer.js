@@ -28,7 +28,9 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         checks: remappedChecks,
-        checkId: state.checkId + 1
+        checkId: state.checkId + 1,
+        memberId: 1,
+        // memberId: state.memberId +1
       };
 
     case "ADD_MEMBER":

@@ -38,7 +38,6 @@ class Checks extends Component {
           render={() => (
             <div>
               <Check params={this.props.checks} />
-              );
             </div>
           )}
         />

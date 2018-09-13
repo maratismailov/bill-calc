@@ -42,12 +42,24 @@
   width: 259px;
   height: 89px;
   padding: 10px 16px;
-  font-size: 35px;
+  font-size: 25px;
   line-height: 1.33;
   border-radius: 15px;
   background-color: lightgreen;
   border: none;
-  margin: 2%;
+  margin: 1%;
+}
+
+.Add-dish {
+  width: 89px;
+  height: 35px;
+  padding: 10px 16px;
+  font-size: 15px;
+  line-height: 1.33;
+  border-radius: 15px;
+  background-color: lightgreen;
+  border: none;
+  margin: 5px;
 }
 
 .Checks-grid {

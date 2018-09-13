@@ -1,3 +1,12 @@
+import Check from "../containers/Checks/Check/Check";
+
+const initialState = {
+  checks: [],
+  checkId: 0,
+  initChecks: [],
+  memberId: 0,
+  dishId: 0
+};
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_CHECK":
@@ -33,7 +42,10 @@ const reducer = (state = initialState, action) => {
             members: [
               ...check.members,
               {
-                dish: action.member,
+                dishes:[
+                  // ...check.members[state.memberId-1].dishes,
+                  {dish: action.member}
+                ],
                 memberId: state.memberId
               }
             ]
@@ -55,16 +67,23 @@ const reducer = (state = initialState, action) => {
           if (memberIndex === state.memberId-1) {
             return {
               ...member,
-              dish: action.dish
+              dishes: [
+                ...member.dishes,
+                {dish: action.dish}
+              ]
             }
           }
         });
         return {
           ...check,
+          // ...check.members,
           members: remappedDishesInternal
         };
       }
-      return check;
+      return {
+        
+        check
+      }
     });
 
     return {

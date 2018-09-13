@@ -23,10 +23,11 @@ class Checks extends Component {
           render={() => (
             <div>
               <h1 className="App">Checks</h1>
-              <button className="Add-check" onClick={this.addCheckHandler}>
-                <Link to="/check">Add check</Link>
-                {/* Add check */}
-              </button>
+              <Link to="/check">
+                <button type="button" className="Add-check" onClick={this.addCheckHandler}>
+                  Add check
+                </button>
+              </Link>
             </div>
           )}
         />
@@ -75,13 +76,16 @@ class Checks extends Component {
 // ]
 
 const singleCheck = [
-  // {
-  //     member: [{ dish: 'dishName1' }]
-  // }
   {
-    dish: "dishNameAction",
+    dishes: [
+      {
+        dish: "dishNameAction",
+
+      }
+    ],
     memberId: 0
   }
+
 ];
 
 const MapStateToProps = state => {

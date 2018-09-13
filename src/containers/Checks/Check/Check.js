@@ -19,9 +19,11 @@ class Check extends Component {
           render={() => (
             <div>
               <h1 className="App">Check</h1>
-              <button className="Add-check">
-                <Link to="/">Back to checks</Link>
-              </button>
+              <Link to="/">
+                <button type="button" className="Add-check">
+                  Back to checks
+                </button>
+              </Link>
               <button className="Add-check" onClick={this.addMemberHandler}>
                 Add member
               </button>
@@ -29,7 +31,7 @@ class Check extends Component {
                 {this.props.checks[this.props.checkId - 1].members.map(
                   member => {
                     return (
-                      <div key={member.membersId}>
+                      <div key={member.memberId}>
                         <div>Member {member.memberId}</div>
                         <Member params={this.props.checks} />
                       </div>
@@ -46,7 +48,20 @@ class Check extends Component {
   }
 }
 
-const singleMember = "dishNameAction";
+const singleMember = [
+  {
+    dishes: [
+      {
+        dish: "dishNameAction",
+
+      }
+    ],
+    memberId: 0
+  }
+
+];
+
+const singleDish = "dishNameAction";
 
 const MapStateToProps = state => {
   return {
@@ -60,7 +75,7 @@ const MapStateToProps = state => {
 const MapDispatchToProps = dispatch => {
   return {
     addMemberToStore: () =>
-      dispatch({ type: "ADD_MEMBER", member: singleMember })
+      dispatch({ type: "ADD_MEMBER", member: singleDish })
   };
 };
 

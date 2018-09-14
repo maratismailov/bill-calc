@@ -6,7 +6,17 @@ import Dish from "./Dish/Dish";
 class Member extends Component {
 
   addDishHandler = () => {
-    this.props.addDishToStore(this.check);
+    // console.log(this.props.memberId);
+    const memberId = this.props.memberId;
+    // console.log(memberId)
+    this.props.addDishToStore(memberId);
+  };
+
+  addDishNameHandler = (event, index) => {
+    const enteredValue = event.target.value;
+    const memberId = this.props.memberId;
+    this.props.addDishNameToStore(enteredValue, index, memberId);
+    console.log(index)
   };
 
   render() {
@@ -19,13 +29,17 @@ class Member extends Component {
       // "'Dish1 Dish2 Dish3'"
     };
     return (
-      <div className="Dishes-grid" style={style}>
-        <div className="Members-grid">
-          {this.props.checks[this.props.checkId - 1].members[this.props.memberId - 1].dishes.map(
-            () => {
+      <div className="Members-grid" style={style}>
+        <div className="Dishes-grid">
+          {this.props.checks[this.props.checkId - 1].members[this.props.memberId].dishes.map(
+            (dish,index) => {
               return (
                 <div >
-                  <Dish params={this.props.checks} />
+                  <Dish params={this.props.checks}
+                    changed={(event) => {
+                      this.addDishNameHandler(event, index)
+                    }}
+                    value={this.props.inputValue} />
                 </div>
               )
             })
@@ -46,15 +60,18 @@ const MapStateToProps = state => {
     checks: state.checks,
     check: state.check,
     member: state.member,
-    memberId: state.memberId,
+    // memberId: state.memberId,
     checkId: state.checkId
   };
 };
 
 const MapDispatchToProps = dispatch => {
   return {
-    addDishToStore: () =>
-      dispatch({ type: "ADD_DISH", dish: singleDish })
+    addDishToStore: (memberId) =>
+      dispatch({ type: "ADD_DISH", dish: singleDish, memberId: memberId }),
+
+    addDishNameToStore: (enteredValue, index, memberId) =>
+      dispatch({ type: "ADD_DISH_NAME", dishName: enteredValue, dishId: index, memberId: memberId })
   };
 };
 

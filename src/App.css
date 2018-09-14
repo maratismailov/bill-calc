@@ -39,15 +39,15 @@
 }
 
 .Add-check {
-  width: 259px;
-  height: 89px;
+  width: 159px;
+  height: 35px;
   padding: 10px 16px;
-  font-size: 25px;
+  font-size: 15px;
   line-height: 1.33;
   border-radius: 15px;
   background-color: lightgreen;
   border: none;
-  margin: 1%;
+  margin: 5px;
 }
 
 .Add-dish {
@@ -59,11 +59,12 @@
   border-radius: 15px;
   background-color: lightgreen;
   border: none;
-  margin: 5px;
+  /* margin: 5px; */
 }
 
 .Checks-grid {
   display: grid;
+  padding: 10px 16px;
   grid-gap: 20px;
   grid-template-rows: 50fr, 30fr;
   grid-template-columns: 200px, 200px;
@@ -95,7 +96,8 @@
 
 .Members-grid {
   display: grid;
-  grid-gap: 35px;
+  grid-gap: 15px;
+  padding: 10px 16px;
   grid-template-rows: 50fr, 30fr;
   grid-template-columns: 200px, 200px;
   grid-template-areas:

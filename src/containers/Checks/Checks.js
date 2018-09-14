@@ -52,7 +52,7 @@ class Checks extends Component {
                 return (
                   <div key={check.id}>
                     {/* <Check params={this.props.checks} /> */}
-                    <ChecksList date={this.props.checks[index].date.toString()} />
+                    <ChecksList date={this.props.checks[index].date.toLocaleString('ru-RU')} />
                   </div>
                 );
               })}

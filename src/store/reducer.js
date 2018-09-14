@@ -65,24 +65,23 @@ const reducer = (state = initialState, action) => {
 
 
 
-      case 'ADD_DISH':
+    case 'ADD_DISH':
       const remappedDishes = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
-  
+
           const remappedDishesInternal = check.members.map((member, memberIndex) => {
-            
-            if (memberIndex === state.memberId-1) {
+            if (memberIndex === action.memberId) {
               return {
                 ...member,
                 dishes: [
                   ...member.dishes,
-                  {dish: action.dish}
+                  { dish: action.dish }
                 ]
               }
             }
-      return member;
+            return member;
           });
-  
+
           return {
             ...check,
             members: remappedDishesInternal
@@ -90,11 +89,57 @@ const reducer = (state = initialState, action) => {
         }
         return check;
       });
-  
+
       return {
         ...state,
         dishId: state.dishId + 1,
         checks: remappedDishes
+      };
+
+    case 'ADD_DISH_NAME':
+      const remappedDishesNames = state.checks.map((check, checkIndex) => {
+        if (checkIndex === state.checkId - 1) {
+
+          const remappedDishesNamesMembers = check.members.map((member, memberIndex) => {
+            if (memberIndex === action.memberId) {
+              // console.log(action.dishName)
+              // console.log(action.dishId)
+              const remappedDishesNamesInternal = member.dishes.map((dish, dishIndex) => {
+                if (dishIndex === action.dishId) {
+                  console.log(action.dishName)
+                  return {
+                    dishes: [
+                      ...dish,
+                      { dish: action.dishName }
+                    ]
+                  }
+                }
+                return dish
+
+              })
+              return {
+                ...member,
+                dishes: remappedDishesNamesInternal
+              }
+            }
+            return {
+              member,
+              // check: remappedDishesNamesMembers
+            }
+          });
+
+          return {
+            ...check,
+            members: remappedDishesNamesMembers
+          };
+        }
+        return check;
+      });
+
+      return {
+        ...state,
+        dishId: state.dishId + 1,
+        checks: remappedDishesNames
       };
     // case "ADD_DISH":
     //   const remappedDishes = state.checks.map((check, checkIndex) => {

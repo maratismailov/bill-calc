@@ -6,6 +6,21 @@ import Checks from "../Checks";
 // import '../../App.css';
 
 class Check extends Component {
+
+  // constructor(props) {
+  //   super(props);
+  //   this.props.AddCheckToStore(this.singleCheck);
+  //  }
+
+  //  UNSAFE_componentWillMount() {
+  //   this.props.AddCheckToStore(this.singleCheck);
+  //  }
+
+  // componentDidMount() {
+  //   this.props.AddCheckToStore(this.singleCheck);
+  //   console.log(this.props.checks[this.props.checkId - 1]);
+  // }
+
   addMemberHandler = () => {
     this.props.addMemberToStore(this.check);
   };
@@ -24,21 +39,29 @@ class Check extends Component {
                   Back to checks
                 </button>
               </Link>
-              <button className="Add-check" onClick={this.addMemberHandler}>
-                Add member
-              </button>
               <div className="Members-grid">
                 {this.props.checks[this.props.checkId - 1].members.map(
-                  member => {
+                  (member, index) => {
                     return (
                       <div key={member.memberId}>
-                        <div>Member {member.memberId}</div>
-                        <Member params={this.props.checks} />
+
+                        <input
+                          onChange={this.props.changed}
+                          value={this.props.value}
+                          {...this.props}
+                          placeholder="Member name"
+                        />
+
+                        {/* <Member params={this.props.checks} /> */}
+                        <Member params={this.props.checks} memberId={index} />
                       </div>
                     );
                   }
                 )}
               </div>
+              <button className="Add-check" onClick={this.addMemberHandler}>
+                Add member
+              </button>
             </div>
           )}
         />
@@ -61,6 +84,18 @@ const singleMember = [
 
 ];
 
+const singleCheck = [
+  {
+    dishes: [
+      {
+        dish: "dishNameAction",
+
+      }
+    ],
+    memberId: 0
+  }
+
+];
 const singleDish = "dishNameAction";
 
 const MapStateToProps = state => {
@@ -75,7 +110,11 @@ const MapStateToProps = state => {
 const MapDispatchToProps = dispatch => {
   return {
     addMemberToStore: () =>
-      dispatch({ type: "ADD_MEMBER", member: singleDish })
+      dispatch({ type: "ADD_MEMBER", member: singleDish }),
+
+    AddCheckToStore: () =>
+      dispatch({ type: "ADD_CHECK", check: singleCheck })
+
   };
 };
 

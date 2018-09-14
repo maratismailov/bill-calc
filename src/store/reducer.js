@@ -108,10 +108,10 @@ const reducer = (state = initialState, action) => {
                 if (dishIndex === action.dishId) {
                   console.log(action.dishName)
                   return {
-                    dishes: [
+                   
                       ...dish,
-                      { dish: action.dishName }
-                    ]
+                       dish: action.dishName 
+                    
                   }
                 }
                 return dish

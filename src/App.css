@@ -81,6 +81,22 @@
   padding: 20px;
 }
 
+.Dish {
+  display: grid;
+  grid-gap: 3px;
+  /* grid-template-rows: 50fr, 30fr; */
+  /* grid-template-columns: 200px, 200px; */
+  grid-template-areas:
+  'DishName DishPrice'
+}
+.DishName {
+  grid-area: DishName
+}
+
+.DishPrice {
+  grid-area: DishPrice
+}
+
 .Dishes-grid {
   display: grid;
   grid-gap: 8px;

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Dish from "./Dish/Dish";
+import Price from './Price/Price'
 // import '../../../App.css';
 
 class Member extends Component {
@@ -16,7 +17,14 @@ class Member extends Component {
     const enteredValue = event.target.value;
     const memberId = this.props.memberId;
     this.props.addDishNameToStore(enteredValue, index, memberId);
-    console.log(index)
+    // console.log(index)
+  };
+
+  addDishPriceHandler = (event, index) => {
+    const enteredValue = event.target.value;
+    const memberId = this.props.memberId;
+    this.props.addDishPriceToStore(enteredValue, index, memberId);
+    // console.log(index)
   };
 
   render() {
@@ -32,12 +40,17 @@ class Member extends Component {
       <div className="Members-grid" style={style}>
         <div className="Dishes-grid">
           {this.props.checks[this.props.checkId - 1].members[this.props.memberId].dishes.map(
-            (dish,index) => {
+            (dish, index) => {
               return (
-                <div >
-                  <Dish params={this.props.checks}
+                <div className='Dish'>
+                  <Dish className='DishName' params={this.props.checks}
                     changed={(event) => {
                       this.addDishNameHandler(event, index)
+                    }}
+                    value={this.props.inputValue} />
+                  <Price className='DishPrice' params={this.props.checks}
+                    changed={(event) => {
+                      this.addDishPriceHandler(event, index)
                     }}
                     value={this.props.inputValue} />
                 </div>
@@ -71,7 +84,10 @@ const MapDispatchToProps = dispatch => {
       dispatch({ type: "ADD_DISH", dish: singleDish, memberId: memberId }),
 
     addDishNameToStore: (enteredValue, index, memberId) =>
-      dispatch({ type: "ADD_DISH_NAME", dishName: enteredValue, dishId: index, memberId: memberId })
+      dispatch({ type: "ADD_DISH_NAME", dishName: enteredValue, dishId: index, memberId: memberId }),
+
+    addDishPriceToStore: (enteredValue, index, memberId) =>
+      dispatch({ type: "ADD_DISH_PRICE", dishPrice: enteredValue, dishId: index, memberId: memberId })
   };
 };
 

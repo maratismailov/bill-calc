@@ -25,6 +25,10 @@ class Check extends Component {
     this.props.addMemberToStore(this.check);
   };
 
+  calculateHandler = () => {
+    this.props.calculate(this.check);
+  };
+
   render() {
     return (
       <div>
@@ -61,6 +65,9 @@ class Check extends Component {
               </div>
               <button className="Add-check" onClick={this.addMemberHandler}>
                 Add member
+              </button>
+              <button className="Add-check" onClick={this.calculateHandler}>
+                Calculate
               </button>
             </div>
           )}
@@ -112,8 +119,8 @@ const MapDispatchToProps = dispatch => {
     addMemberToStore: () =>
       dispatch({ type: "ADD_MEMBER", member: singleDish }),
 
-    AddCheckToStore: () =>
-      dispatch({ type: "ADD_CHECK", check: singleCheck })
+    calculate: () =>
+      dispatch({ type: "CALCULATE" })
 
   };
 };

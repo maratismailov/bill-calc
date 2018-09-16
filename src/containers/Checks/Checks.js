@@ -8,7 +8,7 @@ import ChecksList from "./ChecksList/ChecksList";
 
 class Checks extends Component {
   addCheckHandler = id => {
-    this.props.onAddCheckToStore(this.singleCheck);
+    this.props.addCheckToStore(this.singleCheck);
     console.log(this.props.checks[this.props.checkId - 1]);
   };
 
@@ -100,7 +100,7 @@ const MapStateToProps = state => {
 
 const MapDispatchToProps = dispatch => {
   return {
-    onAddCheckToStore: () => dispatch({ type: "ADD_CHECK", check: singleCheck })
+    addCheckToStore: () => dispatch({ type: "ADD_CHECK", check: singleCheck })
   };
 };
 

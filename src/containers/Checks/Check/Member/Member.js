@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import Dish from "./Dish/Dish";
 import Price from './Price/Price'
@@ -43,16 +44,20 @@ class Member extends Component {
             (dish, index) => {
               return (
                 <div className='Dish'>
-                  <Dish className='DishName' params={this.props.checks}
-                    changed={(event) => {
-                      this.addDishNameHandler(event, index)
-                    }}
-                    value={this.props.inputValue} />
-                  <Price className='DishPrice' params={this.props.checks}
-                    changed={(event) => {
-                      this.addDishPriceHandler(event, index)
-                    }}
-                    value={this.props.inputValue} />
+                  <div className='DishName'>
+                    <Dish params={this.props.checks}
+                      changed={(event) => {
+                        this.addDishNameHandler(event, index)
+                      }}
+                      value={this.props.inputValue} />
+                  </div>
+                  <div className='DishPrice'>
+                    <Price params={this.props.checks}
+                      changed={(event) => {
+                        this.addDishPriceHandler(event, index)
+                      }}
+                      value={this.props.inputValue} />
+                  </div>
                 </div>
               )
             })
@@ -87,9 +92,12 @@ const MapDispatchToProps = dispatch => {
       dispatch({ type: "ADD_DISH_NAME", dishName: enteredValue, dishId: index, memberId: memberId }),
 
     addDishPriceToStore: (enteredValue, index, memberId) =>
-      dispatch({ type: "ADD_DISH_PRICE", dishPrice: enteredValue, dishId: index, memberId: memberId })
+    dispatch({ type: "ADD_DISH_PRICE",  dishPrice: enteredValue, dishId: index, memberId: memberId })
   };
 };
+Member.propTypes = {
+  addDishPriceToStore: PropTypes.number.isRequired
+}
 
 export default connect(
   MapStateToProps,

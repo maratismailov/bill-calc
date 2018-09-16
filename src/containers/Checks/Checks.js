@@ -80,10 +80,12 @@ const singleCheck = [
     dishes: [
       {
         dish: "dishNameAction",
+        price: 0
 
       }
     ],
-    memberId: 0
+    memberId: 0,
+    memberSum: 0
   }
 
 ];

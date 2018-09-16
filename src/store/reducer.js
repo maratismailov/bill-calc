@@ -45,9 +45,13 @@ const reducer = (state = initialState, action) => {
               {
                 dishes: [
                   // ...check.members[state.memberId-1].dishes,
-                  { dish: action.member }
+                  {
+                    dish: action.member,
+                    price: 0
+                  },
                 ],
-                memberId: state.memberId
+                memberId: state.memberId,
+                memberSum: 0
               }
             ]
           };
@@ -75,7 +79,10 @@ const reducer = (state = initialState, action) => {
                 ...member,
                 dishes: [
                   ...member.dishes,
-                  { dish: action.dish }
+                  {
+                    dish: action.dish,
+                    price: 0
+                  }
                 ]
               }
             }
@@ -140,7 +147,7 @@ const reducer = (state = initialState, action) => {
         checks: remappedDishesNames
       };
 
-      case 'ADD_DISH_PRICE':
+    case 'ADD_DISH_PRICE':
       const remappedDishesPrices = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
 
@@ -155,7 +162,7 @@ const reducer = (state = initialState, action) => {
                   return {
 
                     ...dish,
-                    price: action.dishPrice
+                    price: Number(action.dishPrice)
 
                   }
                 }
@@ -182,6 +189,56 @@ const reducer = (state = initialState, action) => {
         ...state,
         dishId: state.dishId + 1,
         checks: remappedDishesPrices
+      };
+
+    case 'CALCULATE':
+      const remappedCalculate = state.checks.map((check, checkIndex) => {
+        if (checkIndex === state.checkId - 1) {
+
+          const remappedcalculateMembers = check.members.map((member, memberIndex) => {
+            // const add = (a, b) => a.price + b.price;
+
+            member.memberSum = member.dishes.reduce((prev, cur) => {
+              return prev + cur.price;
+            }, 0);
+
+            // member.memberSum = member.dishes.reduce(add);
+            // console.log(action.dishName)
+            // console.log(action.dishId)
+            const remappedCalculateDishes = member.dishes.map((dish, dishIndex) => {
+
+              console.log(action.dishId);
+              console.log(action.memberId)
+              return {
+
+                ...dish,
+                price: action.dishPrice
+
+              }
+
+              return dish
+
+            })
+            // return {
+            //   ...member,
+            //   dishes: remappedDishesPricesInternal
+            // }
+
+            return member
+          });
+
+          return {
+            ...check,
+            members: remappedcalculateMembers
+          };
+        }
+        return check;
+      });
+
+      return {
+        ...state,
+        dishId: state.dishId + 1,
+        checks: remappedCalculate
       };
     // case "ADD_DISH":
     //   const remappedDishes = state.checks.map((check, checkIndex) => {

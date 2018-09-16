@@ -6,7 +6,9 @@ class Dish extends Component {
     return (
       <div>
         <input
-          onChange={this.props.changed}
+        type='number'
+        // pattern='[0-9]{0,5}'
+          onInput={this.props.changed}
           value={this.props.value}
           {...this.props}
           placeholder="Price"

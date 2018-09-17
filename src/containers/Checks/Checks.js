@@ -85,7 +85,8 @@ const singleCheck = [
       }
     ],
     memberId: 0,
-    memberSum: 0
+    memberSum: 0,
+    memberName: 'name'
   }
 
 ];

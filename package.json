@@ -4,7 +4,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.4.2",
+    "react": "^16.5.1",
+    "react-debounce-input": "^3.2.0",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",

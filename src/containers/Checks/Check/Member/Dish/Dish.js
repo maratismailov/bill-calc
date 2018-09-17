@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { DebounceInput } from 'react-debounce-input';
 
 class Dish extends Component {
   render() {
     return (
       <div>
-        <input
+        <DebounceInput
+          debounceTimeout={800}
           onChange={this.props.changed}
           value={this.props.value}
           {...this.props}

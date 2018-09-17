@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Route, Link } from "react-router-dom";
 import Member from "./Member/Member";
 import Checks from "../Checks";
+import { DebounceInput } from 'react-debounce-input';
 // import '../../App.css';
 
 class Check extends Component {
@@ -50,7 +51,14 @@ class Check extends Component {
                       return (
                         <div key={member.memberId}>
 
-                          <input
+                          {/* <DebounceInput
+          minLength={2}
+          debounceTimeout={300}
+          onChange={event => this.setState({value: event.target.value})} /> */}
+
+
+                          <DebounceInput
+                            debounceTimeout={800}
                             onChange={(event) => {
                               this.addMemberNameHandler(event, index)
                             }}
@@ -147,9 +155,9 @@ const MapDispatchToProps = dispatch => {
     calculate: () =>
       dispatch({ type: "CALCULATE" }),
 
-    addMemberNameToStore: (enteredValue, index, memberId) => 
+    addMemberNameToStore: (enteredValue, index, memberId) =>
       dispatch({ type: 'ADD_MEMBER_NAME', memberName: enteredValue, memberId: memberId }),
-    
+
     addServiceChargeToStore: (enteredValue, index, memberId) => {
       dispatch({ type: 'ADD_SERVICE_CHARGE', serviceCharge: enteredValue, memberId: memberId })
     }

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import Dish from "./Dish/Dish";
-import Price from './Price/Price'
+import Price from './Price/Price';
+
 // import '../../../App.css';
 
 class Member extends Component {

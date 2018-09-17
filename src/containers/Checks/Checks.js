@@ -10,7 +10,11 @@ import OldCheck from '../../components/OldCheck/OldCheck';
 class Checks extends Component {
   addCheckHandler = id => {
     this.props.addCheckToStore(this.singleCheck);
-    console.log(this.props.checks[this.props.checkId - 1]);
+  };
+
+  passOldCheckIndex = index => {
+    this.props.passOldCheckIndexToStore(index);
+    console.log(index)
   };
 
   render() {
@@ -44,6 +48,12 @@ class Checks extends Component {
           )}
         />
 
+
+{/* onClick={this.passOldCheckIndex}
+
+passOldCheckIndex = (e) => {
+  console.log(e.target);
+} */}
         <Route
           path="/"
           exact
@@ -53,27 +63,49 @@ class Checks extends Component {
                 return (
                   // <Link to={`/taco/${taco.name}`}>{taco.name}</Link>
                   <div key={check.id}>
-                    <Link to= {'/OldCheck/${check.date}' } >
-                      <button className="CheckList">
+                    <Link to={'/OldCheck'} >
+                      <button className="CheckList" onClick={() => this.passOldCheckIndex(index)}>
                         <ChecksList date={this.props.checks[index].date.toLocaleString('ru-RU')} />
                       </button>
                     </Link>
                   </div>
                 );
               })}
+
+              <button type="button" className="Add-check" onClick={() => localStorage.clear()}>
+                Purge state
+              </button>
             </div>
           )}
         />
-{/* <Link to={{ pathname: '/route', state: { foo: 'bar'} }}>My route</Link>
+        {/* <Link to={{ pathname: '/route', state: { foo: 'bar'} }}>My route</Link>
 Then you can access the state object from within your component:
 
 const {foo} = props.location.state
 
 console.log(foo) // "bar" */}
+
+        {/* <Route
+  exact
+  path='/'
+  render={(props) => <LawsList {...props} anotherProp={value} />}
+/> */}
+
+        {/* <Route
+  path='/dashboard'
+  render={(props) => <Dashboard {...props} isAuthed={true} />}
+/> */}
+        {/* <Route
+          path="/OldCheck"
+          exact
+          render={(props) => <OldCheck  />}
+        /> */}
+
+
         <Route
           path="/OldCheck"
           exact
-          render={() => (
+          render={(props) => (
             <div>
               <Link to="/">
                 <button type="button" className="Add-check">
@@ -83,18 +115,16 @@ console.log(foo) // "bar" */}
              
                   <div >
                     <Link to="/OldCheck">
-                      <button className="CheckList">
-                        <OldCheck date= {this.props.date}/>
-                      </button>
+                      <div>
+                        <OldCheck {...props} date= {this.props.checks[0].date}/>
+                      </div>
                     </Link>
                   </div>
               
             </div>
           )}
         />
-        <button type="button" className="Add-check" onClick={() => localStorage.clear()}>
-          Purge state
-        </button>
+
       </div>
     );
   }
@@ -139,7 +169,8 @@ const MapStateToProps = state => {
 
 const MapDispatchToProps = dispatch => {
   return {
-    addCheckToStore: () => dispatch({ type: "ADD_CHECK", check: singleCheck })
+    addCheckToStore: () => dispatch({ type: "ADD_CHECK", check: singleCheck }),
+    passOldCheckIndexToStore: (index) => dispatch({ type: "OLD_CHECK", OldCheckIndex: index })
   };
 };
 

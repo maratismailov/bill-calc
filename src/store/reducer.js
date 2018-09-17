@@ -5,11 +5,18 @@ const initialState = {
   checkId: 0,
   initChecks: [],
   memberId: 0,
-  dishId: 0
+  dishId: 0,
+  OldCheckIndex: 0
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_CHECK":
+    case "OLD_CHECK":
+      return {
+        ...state,
+        OldCheckIndex: action.OldCheckIndex
+      };
+
+      case "ADD_CHECK":
       // const remappedChecks = JSON.parse(JSON.stringify(state.checks));
 
       const remappedChecks = state.checks.map((check, checkIndex) => {

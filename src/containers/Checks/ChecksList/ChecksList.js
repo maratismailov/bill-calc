@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 
 const ChecksList =(props) => {
     return (
-      <div className="Members-grid">
+      <div>
         Date: {props.date}
       </div>
     );

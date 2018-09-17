@@ -3,6 +3,7 @@ import { Route, Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Check from "./Check/Check";
 import ChecksList from "./ChecksList/ChecksList";
+import OldCheck from '../../components/OldCheck/OldCheck';
 
 // var id = 0;
 
@@ -50,15 +51,50 @@ class Checks extends Component {
             <div>
               {this.props.checks.map((check, index) => {
                 return (
+                  // <Link to={`/taco/${taco.name}`}>{taco.name}</Link>
                   <div key={check.id}>
-                    {/* <Check params={this.props.checks} /> */}
-                    <ChecksList date={this.props.checks[index].date.toLocaleString('ru-RU')} />
+                    <Link to= {'/OldCheck/${check.date}' } >
+                      <button className="CheckList">
+                        <ChecksList date={this.props.checks[index].date.toLocaleString('ru-RU')} />
+                      </button>
+                    </Link>
                   </div>
                 );
               })}
             </div>
           )}
         />
+{/* <Link to={{ pathname: '/route', state: { foo: 'bar'} }}>My route</Link>
+Then you can access the state object from within your component:
+
+const {foo} = props.location.state
+
+console.log(foo) // "bar" */}
+        <Route
+          path="/OldCheck"
+          exact
+          render={() => (
+            <div>
+              <Link to="/">
+                <button type="button" className="Add-check">
+                  Back to checks
+                 </button>
+              </Link>
+             
+                  <div >
+                    <Link to="/OldCheck">
+                      <button className="CheckList">
+                        <OldCheck date= {this.props.date}/>
+                      </button>
+                    </Link>
+                  </div>
+              
+            </div>
+          )}
+        />
+        <button type="button" className="Add-check" onClick={() => localStorage.clear()}>
+          Purge state
+        </button>
       </div>
     );
   }

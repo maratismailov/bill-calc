@@ -50,13 +50,6 @@ class Check extends Component {
                     (member, index) => {
                       return (
                         <div key={member.memberId}>
-
-                          {/* <DebounceInput
-          minLength={2}
-          debounceTimeout={300}
-          onChange={event => this.setState({value: event.target.value})} /> */}
-
-
                           <DebounceInput
                             debounceTimeout={800}
                             onChange={(event) => {

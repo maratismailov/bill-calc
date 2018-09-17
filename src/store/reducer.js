@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
         return check;
       });
       remappedChecks.push({
-        date: new Date(),
+        date: new Date().toLocaleString('ru-RU'),
         id: state.checkId,
         serviceCharge: 0,
         members: action.check

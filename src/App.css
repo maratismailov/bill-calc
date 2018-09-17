@@ -50,6 +50,19 @@
   margin: 5px;
 }
 
+.CheckList {
+  width: 259px;
+  height: 35px;
+  padding: 10px 16px;
+  font-size: 15px;
+  text-align: center;
+  line-height: 1.33;
+  border-radius: 15px;
+  background-color: lightgreen;
+  border: none;
+  margin: 5px;
+}
+
 .Add-dish {
   width: 89px;
   height: 35px;

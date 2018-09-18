@@ -13,12 +13,6 @@ class Dish extends Component {
           {...this.props}
           placeholder="Name"
         />
-        {/* <input
-          onChange={this.props.changed}
-          value={this.props.value}
-          {...this.props}
-          placeholder="Price"
-        /> */}
       </div>
     );
   }

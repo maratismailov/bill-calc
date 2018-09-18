@@ -4,7 +4,6 @@ import { Route, Link } from "react-router-dom";
 import Member from "./Member/Member";
 import Checks from "../Checks";
 import { DebounceInput } from 'react-debounce-input';
-// import '../../App.css';
 
 class Check extends Component {
 
@@ -20,14 +19,12 @@ class Check extends Component {
     const enteredValue = event.target.value;
     const memberId = this.props.memberId;
     this.props.addMemberNameToStore(enteredValue, index, memberId);
-    // console.log(index)
   };
 
   addServiceChargeHandler = (event, index) => {
     const enteredValue = event.target.value;
     const memberId = this.props.memberId;
     this.props.addServiceChargeToStore(enteredValue, index, memberId);
-    // console.log(index)
   };
 
   render() {
@@ -49,18 +46,15 @@ class Check extends Component {
                   {this.props.checks[this.props.checkId - 1].members.map(
                     (member, index) => {
                       return (
-                        <div key={member.memberId}>
+                        <div key={index}>
                           <DebounceInput
                             debounceTimeout={800}
                             onChange={(event) => {
                               this.addMemberNameHandler(event, index)
                             }}
-                            value={this.props.value}
-                            {...this.props}
                             placeholder="Member name"
                           />
 
-                          {/* <Member params={this.props.checks} /> */}
                           <Member params={this.props.checks} memberId={index} />
                           <div>
                             {member.memberSum}
@@ -82,13 +76,11 @@ class Check extends Component {
                     this.addServiceChargeHandler(event)
                   }}
                   value={this.props.value}
-                  {...this.props}
                   placeholder="Service charge"
                 />
               </div>
             )}
           />
-          {/* <Route path='/' exact component={Checks} /> */}
         </div>
       );
     }
@@ -104,31 +96,6 @@ class Check extends Component {
   }
 }
 
-const singleMember = [
-  {
-    dishes: [
-      {
-        dish: "dishNameAction",
-
-      }
-    ],
-    memberId: 0
-  }
-
-];
-
-const singleCheck = [
-  {
-    dishes: [
-      {
-        dish: "dishNameAction",
-
-      }
-    ],
-    memberId: 0
-  }
-
-];
 const singleDish = "dishNameAction";
 
 const MapStateToProps = state => {

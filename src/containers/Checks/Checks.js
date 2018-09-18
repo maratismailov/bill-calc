@@ -5,8 +5,6 @@ import Check from "./Check/Check";
 import ChecksList from "./ChecksList/ChecksList";
 import OldCheck from '../../components/OldCheck/OldCheck';
 
-// var id = 0;
-
 class Checks extends Component {
   addCheckHandler = id => {
     this.props.addCheckToStore(this.singleCheck);
@@ -18,8 +16,6 @@ class Checks extends Component {
   };
 
   render() {
-    // this.props.checks[0] &&
-    // console.log(this.props.checks[0].id);
     return (
       <div>
         <Route
@@ -36,8 +32,6 @@ class Checks extends Component {
             </div>
           )}
         />
-        {/* <Route path='/check' exact component={Check}  /> */}
-
         <Route
           path="/check"
           exact
@@ -48,12 +42,6 @@ class Checks extends Component {
           )}
         />
 
-
-{/* onClick={this.passOldCheckIndex}
-
-passOldCheckIndex = (e) => {
-  console.log(e.target);
-} */}
         <Route
           path="/"
           exact
@@ -61,7 +49,6 @@ passOldCheckIndex = (e) => {
             <div>
               {this.props.checks.map((check, index) => {
                 return (
-                  // <Link to={`/taco/${taco.name}`}>{taco.name}</Link>
                   <div key={check.id}>
                     <Link to={'/OldCheck'} >
                       <button className="CheckList" onClick={() => this.passOldCheckIndex(index)}>
@@ -78,28 +65,6 @@ passOldCheckIndex = (e) => {
             </div>
           )}
         />
-        {/* <Link to={{ pathname: '/route', state: { foo: 'bar'} }}>My route</Link>
-Then you can access the state object from within your component:
-
-const {foo} = props.location.state
-
-console.log(foo) // "bar" */}
-
-        {/* <Route
-  exact
-  path='/'
-  render={(props) => <LawsList {...props} anotherProp={value} />}
-/> */}
-
-        {/* <Route
-  path='/dashboard'
-  render={(props) => <Dashboard {...props} isAuthed={true} />}
-/> */}
-        {/* <Route
-          path="/OldCheck"
-          exact
-          render={(props) => <OldCheck  />}
-        /> */}
 
 
         <Route
@@ -112,15 +77,15 @@ console.log(foo) // "bar" */}
                   Back to checks
                  </button>
               </Link>
-             
-                  <div >
-                    <Link to="/OldCheck">
-                      <div>
-                        <OldCheck {...props} date= {this.props.checks[0].date}/>
-                      </div>
-                    </Link>
+
+              <div >
+                <Link to="/OldCheck">
+                  <div>
+                    <OldCheck {...props} date={this.props.checks[0].date} />
                   </div>
-              
+                </Link>
+              </div>
+
             </div>
           )}
         />
@@ -129,17 +94,6 @@ console.log(foo) // "bar" */}
     );
   }
 }
-
-// const singleCheck = [
-//     {
-//         member: [
-//             {
-//                 dish: 'dishName0'
-//             }
-//         ]
-
-//     }
-// ]
 
 const singleCheck = [
   {

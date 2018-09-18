@@ -1,17 +1,11 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import Dish from "./Dish/Dish";
-import Price from './Price/Price';
-
-// import '../../../App.css';
+import { DebounceInput } from 'react-debounce-input';
 
 class Member extends Component {
 
   addDishHandler = () => {
-    // console.log(this.props.memberId);
     const memberId = this.props.memberId;
-    // console.log(memberId)
     this.props.addDishToStore(memberId);
   };
 
@@ -19,14 +13,12 @@ class Member extends Component {
     const enteredValue = event.target.value;
     const memberId = this.props.memberId;
     this.props.addDishNameToStore(enteredValue, index, memberId);
-    // console.log(index)
   };
 
   addDishPriceHandler = (event, index) => {
     const enteredValue = event.target.value;
     const memberId = this.props.memberId;
     this.props.addDishPriceToStore(enteredValue, index, memberId);
-    // console.log(index)
   };
 
   render() {
@@ -44,20 +36,27 @@ class Member extends Component {
           {this.props.checks[this.props.checkId - 1].members[this.props.memberId].dishes.map(
             (dish, index) => {
               return (
-                <div className='Dish'>
+                <div key={index} className='Dish'>
                   <div className='DishName'>
-                    <Dish params={this.props.checks}
-                      changed={(event) => {
-                        this.addDishNameHandler(event, index)
-                      }}
-                      value={this.props.inputValue} />
+                    <div>
+                      <DebounceInput
+                        debounceTimeout={800}
+                        onChange={(event) => {
+                          this.addDishNameHandler(event, index)
+                        }}
+
+                        placeholder="Name"
+                      />
+                    </div>
                   </div>
                   <div className='DishPrice'>
-                    <Price params={this.props.checks}
-                      changed={(event) => {
+                    <input
+                      type='number'
+                      onInput={(event) => {
                         this.addDishPriceHandler(event, index)
                       }}
-                      value={this.props.inputValue} />
+                      placeholder="Price"
+                    />
                   </div>
                 </div>
               )
@@ -93,12 +92,9 @@ const MapDispatchToProps = dispatch => {
       dispatch({ type: "ADD_DISH_NAME", dishName: enteredValue, dishId: index, memberId: memberId }),
 
     addDishPriceToStore: (enteredValue, index, memberId) =>
-    dispatch({ type: "ADD_DISH_PRICE",  dishPrice: enteredValue, dishId: index, memberId: memberId })
+      dispatch({ type: "ADD_DISH_PRICE", dishPrice: enteredValue, dishId: index, memberId: memberId })
   };
 };
-Member.propTypes = {
-  addDishPriceToStore: PropTypes.number.isRequired
-}
 
 export default connect(
   MapStateToProps,

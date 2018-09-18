@@ -4,6 +4,7 @@ import { Route, Link } from "react-router-dom";
 import Member from "./Member/Member";
 import Checks from "../Checks";
 import { DebounceInput } from 'react-debounce-input';
+import { addMemberNameToStore, addServiceChargeToStore, addMemberToStore, calculate } from '../../../actions/index'
 
 class Check extends Component {
 
@@ -110,18 +111,16 @@ const MapStateToProps = state => {
 const MapDispatchToProps = dispatch => {
   return {
     addMemberToStore: () =>
-      dispatch({ type: "ADD_MEMBER", member: singleDish }),
+      dispatch(addMemberToStore(singleDish)),
 
     calculate: () =>
-      dispatch({ type: "CALCULATE" }),
+      dispatch(calculate()),
 
-    addMemberNameToStore: (enteredValue, index, memberId) =>
-      dispatch({ type: 'ADD_MEMBER_NAME', memberName: enteredValue, memberId: memberId }),
+    addMemberNameToStore: (enteredValue, memberId) =>
+      dispatch(addMemberNameToStore(enteredValue, memberId)),
 
-    addServiceChargeToStore: (enteredValue, index, memberId) => {
-      dispatch({ type: 'ADD_SERVICE_CHARGE', serviceCharge: enteredValue, memberId: memberId })
-    }
-
+    addServiceChargeToStore: (enteredValue, memberId) => 
+      dispatch(addServiceChargeToStore(enteredValue, memberId))
   };
 };
 

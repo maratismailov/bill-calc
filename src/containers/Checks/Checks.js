@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Check from "./Check/Check";
 import ChecksList from "./ChecksList/ChecksList";
 import OldCheck from '../../components/OldCheck/OldCheck';
+import { passOldCheckIndexToStore, addCheckToStore } from '../../actions/index'
 
 class Checks extends Component {
   addCheckHandler = id => {
@@ -75,7 +76,7 @@ class Checks extends Component {
               <Link to="/">
                 <button type="button" className="Add-check">
                   Back to checks
-                 </button>
+                </button>
               </Link>
 
               <div >
@@ -123,8 +124,11 @@ const MapStateToProps = state => {
 
 const MapDispatchToProps = dispatch => {
   return {
-    addCheckToStore: () => dispatch({ type: "ADD_CHECK", check: singleCheck }),
-    passOldCheckIndexToStore: (index) => dispatch({ type: "OLD_CHECK", OldCheckIndex: index })
+    // addCheckToStore: () => dispatch({ type: "ADD_CHECK", check: singleCheck }),
+    addCheckToStore: () => dispatch(addCheckToStore(singleCheck)),
+    // passOldCheckIndexToStore: (index) => dispatch({ type: "OLD_CHECK", OldCheckIndex: index }),
+    // toggleTodo: id => dispatch(toggleTodo(id)),
+    passOldCheckIndexToStore: index => dispatch(passOldCheckIndexToStore(index)),
   };
 };
 

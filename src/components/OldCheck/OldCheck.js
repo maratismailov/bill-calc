@@ -42,7 +42,6 @@ const MapStateToProps = state => {
   return {
     currentCheckIndex: state.OldCheckIndex,
     checks: state.checks
-
   };
 };
 

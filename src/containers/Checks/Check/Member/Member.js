@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { DebounceInput } from 'react-debounce-input';
+import { addDishPriceToStore, addDishNameToStore, addDishToStore } from '../../../../actions/index'
+
 
 class Member extends Component {
 
@@ -86,17 +88,17 @@ const MapStateToProps = state => {
 const MapDispatchToProps = dispatch => {
   return {
     addDishToStore: (memberId) =>
-      dispatch({ type: "ADD_DISH", dish: singleDish, memberId: memberId }),
+      dispatch(addDishToStore(singleDish, memberId)),
 
     addDishNameToStore: (enteredValue, index, memberId) =>
-      dispatch({ type: "ADD_DISH_NAME", dishName: enteredValue, dishId: index, memberId: memberId }),
+      dispatch(addDishNameToStore(enteredValue, index, memberId)),
 
     addDishPriceToStore: (enteredValue, index, memberId) =>
-      dispatch({ type: "ADD_DISH_PRICE", dishPrice: enteredValue, dishId: index, memberId: memberId })
+      dispatch(addDishPriceToStore(enteredValue, index, memberId))
+    };
   };
-};
 
-export default connect(
-  MapStateToProps,
-  MapDispatchToProps
-)(Member);
+  export default connect(
+    MapStateToProps,
+    MapDispatchToProps
+  )(Member);

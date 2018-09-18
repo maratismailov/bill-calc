@@ -204,7 +204,7 @@ const reducer = (state = initialState, action) => {
         if (checkIndex === state.checkId - 1) {
 
           const remappedMemberNamesInternal = check.members.map((member, memberIndex) => {
-            if (memberIndex === action.memberId-1) {
+            if (memberIndex === action.memberId) {
               return {
                 ...member,
                 memberName: action.memberName

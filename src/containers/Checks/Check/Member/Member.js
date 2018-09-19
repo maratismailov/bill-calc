@@ -39,24 +39,24 @@ class Member extends Component {
             (dish, index) => {
               return (
                 <div key={index} className='Dish'>
-                  <div className='DishName'>
-                    <div>
-                      <DebounceInput
+                  <div >
+                      <DebounceInput className='DishName'
                         debounceTimeout={800}
+                        value={dish.dish}
                         onChange={(event) => {
                           this.addDishNameHandler(event, index)
                         }}
 
                         placeholder="Name"
                       />
-                    </div>
                   </div>
-                  <div className='DishPrice'>
-                    <input
+                  <div >
+                    <input className='DishPrice'
                       type='number'
                       onInput={(event) => {
                         this.addDishPriceHandler(event, index)
                       }}
+                      value={dish.price}
                       placeholder="Price"
                     />
                   </div>
@@ -73,7 +73,7 @@ class Member extends Component {
   }
 }
 
-const singleDish = "dishNameAction";
+const singleDish = '';
 
 const MapStateToProps = state => {
   return {

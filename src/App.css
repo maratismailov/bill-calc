@@ -39,6 +39,18 @@
 }
 
 .Add-check {
+  width: 129px;
+  height: 35px;
+  padding: 10px 16px;
+  font-size: 15px;
+  line-height: 1.33;
+  border-radius: 15px;
+  background-color: lightgreen;
+  border: none;
+  margin: 5px;
+}
+
+.Back-to-check {
   width: 159px;
   height: 35px;
   padding: 10px 16px;
@@ -95,8 +107,9 @@
 }
 
 .Dish {
+  /* width: auto; */
   display: grid;
-  grid-template-columns: max-content max-content;
+  /* grid-template-columns: 59px 59px; */
   grid-gap: 8px;
   /* grid-template-rows: 25px, 35px; */
   grid-template-areas:
@@ -104,12 +117,22 @@
 }
 .DishName {
   grid-area: DishName;
-  grid-column: 1/1
+  grid-column: 1/1;
+  width: 159px;
+  border-radius: 3px;
+  border: 1px solid  #999;
+  height: 18px;
+  font-size: 15px;
 }
 
 .DishPrice {
   grid-area: DishPrice;
-  grid-column: 2/2
+  grid-column: 2/2;
+  width: 89px;
+  border-radius: 3px;
+  border: 1px solid  #999;
+  height: 18px;
+  font-size: 15px;
 }
 
 .Dishes-grid {
@@ -144,6 +167,13 @@
   padding: 20px; */
 }
 
+.Input {
+  width: 125px;
+  border-radius: 3px;
+  border: 1px solid  #999;
+  height: 18px;
+  font-size: 15px;
+}
 
 
 .Dish1 {

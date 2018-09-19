@@ -3,14 +3,20 @@ export const passOldCheckIndexToStore = index => ({
   OldCheckIndex: index
 })
 
-export const addCheckToStore = singleCheck => ({
+export const addCheckToStore = (singleCheck, collectiveDishes) => ({
   type: "ADD_CHECK",
-  check: singleCheck
+  check: singleCheck,
+  collectiveDishes: collectiveDishes,
 })
 
 export const addMemberToStore = singleDish => ({
   type: "ADD_MEMBER",
   member: singleDish
+})
+
+export const addCollectiveDishToStore = singleDish => ({
+  type: "ADD_COLLECTIVE",
+  collective: singleDish
 })
 
 export const calculate = () => ({
@@ -47,4 +53,16 @@ export const addDishPriceToStore = (enteredValue, index, memberId) => ({
   dishPrice: enteredValue,
   dishId: index,
   memberId: memberId
+})
+
+export const addCollectiveDishNameToStore = (enteredValue, index) => ({
+  type: "ADD_COLLECTIVE_NAME",
+  dishName: enteredValue,
+  dishId: index,
+})
+
+export const addCollectiveDishPriceToStore = (enteredValue, index) => ({
+  type: "ADD_COLLECTIVE_PRICE",
+  dishPrice: enteredValue,
+  dishId: index,
 })

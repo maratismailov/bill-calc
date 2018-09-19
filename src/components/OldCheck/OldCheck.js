@@ -32,6 +32,7 @@ class OldCheck extends Component {
             );
           }
         )}
+        Check Total Sum: {this.props.checks[this.props.currentCheckIndex].checkTotalSum}
       </div>
     );
 

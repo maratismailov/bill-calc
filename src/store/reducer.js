@@ -6,7 +6,8 @@ const initialState = {
   initChecks: [],
   memberId: 0,
   dishId: 0,
-  OldCheckIndex: 0
+  OldCheckIndex: 0,
+  checkTotalSum: 0
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -16,14 +17,17 @@ const reducer = (state = initialState, action) => {
         OldCheckIndex: action.OldCheckIndex
       };
 
-      case "ADD_CHECK":
+    case "ADD_CHECK":
+      state.checkTotalSum = 0;
       // const remappedChecks = JSON.parse(JSON.stringify(state.checks));
 
       const remappedChecks = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
           return {
             ...check,
-            members: [...check.members]
+            members: [...check.members],
+            collectiveDishes: [...check.collectiveDishes],
+            collectiveDisheId: 0
           };
         }
         return check;
@@ -32,7 +36,12 @@ const reducer = (state = initialState, action) => {
         date: new Date().toLocaleString('ru-RU'),
         id: state.checkId,
         serviceCharge: 0,
-        members: action.check
+        checkTotalSum: 0,
+        collectiveDisheId: 0,
+        members: action.check,
+        collectiveDishes: action.collectiveDishes,
+        collectiveDishesSum: 0
+        
       });
       return {
         ...state,
@@ -55,10 +64,11 @@ const reducer = (state = initialState, action) => {
                   // ...check.members[state.memberId-1].dishes,
                   {
                     dish: action.member,
-                    price: 0
+                    price: ''
                   },
                 ],
                 memberId: state.memberId,
+                memberName: '',
                 memberSum: 0
               }
             ]
@@ -74,8 +84,86 @@ const reducer = (state = initialState, action) => {
         // dishId:1
       };
 
+    case "ADD_COLLECTIVE":
+      const remappedCollective = state.checks.map((check, checkIndex) => {
+        if (checkIndex === state.checkId - 1) {
+          return {
+            ...check,
+            collectiveDishes: [
+              ...check.collectiveDishes,
+              {
+                collectiveDishName: '',
+                collectiveDishPrice: ''
+              },
+            ],
+            collectiveDisheId: check.collectiveDisheId+1
+          };
+        }
+        return check;
+      });
 
+      return {
+        ...state,
+        // collectiveDisheId: state.collectiveDisheId+1,
+        checks: remappedCollective,
+        // dishId:1
+      };
 
+      case 'ADD_COLLECTIVE_NAME':
+      const remappedCollectiveNames = state.checks.map((check, checkIndex) => {
+        if (checkIndex === state.checkId - 1) {
+
+          const remappedCollectiveNamesInternal = check.collectiveDishes.map((dish, index) => {
+            if (index === action.dishId) {
+              return {
+                ...dish,
+                collectiveDishName: action.dishName
+              }
+            }
+            return dish;
+          });
+
+          return {
+            ...check,
+            collectiveDishes: remappedCollectiveNamesInternal
+          };
+        }
+        return check;
+      });
+
+      return {
+        ...state,
+        // dishId: state.dishId + 1,
+        checks: remappedCollectiveNames
+      };
+
+      case 'ADD_COLLECTIVE_PRICE':
+      const remappedCollectivePrices = state.checks.map((check, checkIndex) => {
+        if (checkIndex === state.checkId - 1) {
+
+          const remappedCollectivePricesInternal = check.collectiveDishes.map((dish, index) => {
+            if (index === action.dishId) {
+              return {
+                ...dish,
+                collectiveDishPrice: action.dishPrice
+              }
+            }
+            return dish;
+          });
+
+          return {
+            ...check,
+            collectiveDishes: remappedCollectivePricesInternal
+          };
+        }
+        return check;
+      });
+
+      return {
+        ...state,
+        // dishId: state.dishId + 1,
+        checks: remappedCollectivePrices
+      };
 
     case 'ADD_DISH':
       const remappedDishes = state.checks.map((check, checkIndex) => {
@@ -89,7 +177,7 @@ const reducer = (state = initialState, action) => {
                   ...member.dishes,
                   {
                     dish: action.dish,
-                    price: 0
+                    price: ''
                   }
                 ]
               }
@@ -110,6 +198,8 @@ const reducer = (state = initialState, action) => {
         dishId: state.dishId + 1,
         checks: remappedDishes
       };
+
+
 
     case 'ADD_DISH_NAME':
       const remappedDishesNames = state.checks.map((check, checkIndex) => {
@@ -199,7 +289,7 @@ const reducer = (state = initialState, action) => {
         checks: remappedDishesPrices
       };
 
-      case 'ADD_MEMBER_NAME':
+    case 'ADD_MEMBER_NAME':
       const remappedMemberNames = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
 
@@ -230,31 +320,32 @@ const reducer = (state = initialState, action) => {
     case 'CALCULATE':
       const remappedCalculate = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
-
+          state.checkTotalSum = 0;
           const remappedcalculateMembers = check.members.map((member, memberIndex) => {
             // const add = (a, b) => a.price + b.price;
 
-            member.memberSum = ((check.serviceCharge/100)+1)*member.dishes.reduce((prev, cur) => {
+            member.memberSum = ((check.serviceCharge / 100) + 1) * member.dishes.reduce((prev, cur) => {
               return prev + cur.price;
             }, 0);
+            state.checkTotalSum = state.checkTotalSum + member.memberSum;
 
             // member.memberSum = member.dishes.reduce(add);
             // console.log(action.dishName)
             // console.log(action.dishId)
-            const remappedCalculateDishes = member.dishes.map((dish, dishIndex) => {
+            // const remappedCalculateDishes = member.dishes.map((dish, dishIndex) => {
 
-              console.log(action.dishId);
-              console.log(action.memberId)
-              return {
+            //   console.log(action.dishId);
+            //   console.log(action.memberId)
+            //   return {
 
-                ...dish,
-                price: action.dishPrice
+            //     ...dish,
+            //     price: action.dishPrice
 
-              }
+            //   }
 
-              return dish
+            //   return dish
 
-            })
+            // })
             // return {
             //   ...member,
             //   dishes: remappedDishesPricesInternal
@@ -262,9 +353,21 @@ const reducer = (state = initialState, action) => {
 
             return member
           });
+          
+          const remappedcalculateCollective = check.collectiveDishes.map((dish, memberIndex) => {
+            // const add = (a, b) => a.price + b.price;
+
+            dish.CollectiveSum = ((check.serviceCharge / 100) + 1) * dish.dishes.reduce((prev, cur) => {
+              return prev + cur.price;
+            }, 0);
+            state.checkTotalSum = state.checkTotalSum + dish.memberSum;
+
+            return dish
+          });
 
           return {
             ...check,
+            checkTotalSum: state.checkTotalSum,
             members: remappedcalculateMembers
           };
         }
@@ -278,7 +381,7 @@ const reducer = (state = initialState, action) => {
       };
 
 
-      case 'ADD_SERVICE_CHARGE':
+    case 'ADD_SERVICE_CHARGE':
       const remappedServiceCharge = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
           console.log(action.serviceCharge)

@@ -100,17 +100,27 @@ const singleCheck = [
   {
     dishes: [
       {
-        dish: "dishNameAction",
-        price: 0
+        dish: '',
+        price: ''
 
       }
     ],
     memberId: 0,
     memberSum: 0,
-    memberName: 'name'
+    memberName: ''
   }
 
 ];
+
+const collectiveDishes = [
+  {
+    collectiveDishName: '',
+    collectiveDishPrice: ''
+  }
+]
+const collectiveDishesSum = {
+  collectiveDishesSum: ''
+}
 
 const MapStateToProps = state => {
   return {
@@ -125,7 +135,7 @@ const MapStateToProps = state => {
 const MapDispatchToProps = dispatch => {
   return {
     // addCheckToStore: () => dispatch({ type: "ADD_CHECK", check: singleCheck }),
-    addCheckToStore: () => dispatch(addCheckToStore(singleCheck)),
+    addCheckToStore: () => dispatch(addCheckToStore(singleCheck, collectiveDishes, collectiveDishesSum)),
     // passOldCheckIndexToStore: (index) => dispatch({ type: "OLD_CHECK", OldCheckIndex: index }),
     // toggleTodo: id => dispatch(toggleTodo(id)),
     passOldCheckIndexToStore: index => dispatch(passOldCheckIndexToStore(index)),

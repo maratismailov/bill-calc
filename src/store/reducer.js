@@ -7,7 +7,8 @@ const initialState = {
   memberId: 0,
   dishId: 0,
   OldCheckIndex: 0,
-  checkTotalSum: 0
+  checkTotalSum: 0,
+  checkCollectiveDivided: 0,
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -40,8 +41,9 @@ const reducer = (state = initialState, action) => {
         collectiveDisheId: 0,
         members: action.check,
         collectiveDishes: action.collectiveDishes,
-        collectiveDishesSum: 0
-        
+        collectiveDishesSum: 0,
+        collectiveMembers: 0
+
       });
       return {
         ...state,
@@ -69,7 +71,8 @@ const reducer = (state = initialState, action) => {
                 ],
                 memberId: state.memberId,
                 memberName: '',
-                memberSum: 0
+                memberSum: 0,
+                collectiveChecked: true
               }
             ]
           };
@@ -96,7 +99,7 @@ const reducer = (state = initialState, action) => {
                 collectiveDishPrice: ''
               },
             ],
-            collectiveDisheId: check.collectiveDisheId+1
+            collectiveDisheId: check.collectiveDisheId + 1
           };
         }
         return check;
@@ -109,7 +112,58 @@ const reducer = (state = initialState, action) => {
         // dishId:1
       };
 
-      case 'ADD_COLLECTIVE_NAME':
+      // case "COLLECTIVE_CHECKED":
+      // if (action.collectiveChecked) {
+      //   return {
+      //     ...state,
+      //     collectiveChecked: false
+      //   }
+      // }
+      // else {
+      //   return {
+      //     ...state,
+      //     collectiveChecked: true
+      //   }
+      // }
+
+      case 'COLLECTIVE_CHECKED':
+      const remappedCollectiveChecked = state.checks.map((check, checkIndex) => {
+        if (checkIndex === state.checkId - 1) {
+
+          const remappedCollectiveCheckedInternal = check.members.map((member, memberIndex) => {
+            if (memberIndex === action.memberId) {
+              if (action.collectiveChecked) {
+                return {
+                  ...member,
+                  collectiveChecked: false
+                }
+              }
+              else {
+                return {
+                  ...member,
+                  collectiveChecked: true
+                }
+              }
+            }
+            return member;
+          });
+
+          return {
+            ...check,
+            members: remappedCollectiveCheckedInternal
+          };
+        }
+        return check;
+      });
+
+      return {
+        ...state,
+        // dishId: state.dishId + 1,
+        checks: remappedCollectiveChecked
+      };
+      
+
+    case 'ADD_COLLECTIVE_NAME':
       const remappedCollectiveNames = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
 
@@ -137,9 +191,11 @@ const reducer = (state = initialState, action) => {
         checks: remappedCollectiveNames
       };
 
-      case 'ADD_COLLECTIVE_PRICE':
+    case 'ADD_COLLECTIVE_PRICE':
       const remappedCollectivePrices = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
+
+          
 
           const remappedCollectivePricesInternal = check.collectiveDishes.map((dish, index) => {
             if (index === action.dishId) {
@@ -320,50 +376,53 @@ const reducer = (state = initialState, action) => {
     case 'CALCULATE':
       const remappedCalculate = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
+
+          
+
+          // console.log(check.members.filter(member.collectiveChecked => member.collectiveChecked === true).length);
+
+          const remappedCollectiveMembers = check.members.map((member, index) => {
+            let collectiveMembers = 0;
+            if (member.collectiveChecked===true) {
+              collectiveMembers = collectiveMembers+1
+            }
+            return collectiveMembers
+          })
+
+          const membersFiltered = remappedCollectiveMembers.filter( member => member === 1)
+
+          const dishCollectiveSum = ((check.serviceCharge / 100) + 1) * check.collectiveDishes.reduce((prev, cur) => {
+            return prev + cur.collectiveDishPrice;
+          }, 0);
+          const collectiveMembersNumber = membersFiltered.length
+          state.checkTotalSum = state.checkTotalSum + dishCollectiveSum;
+          state.checkCollectiveDivided = dishCollectiveSum/collectiveMembersNumber
+          console.log(state.checkCollectiveDivided)
+
+          // console.log(membersFiltered.length)
+          state
           state.checkTotalSum = 0;
           const remappedcalculateMembers = check.members.map((member, memberIndex) => {
             // const add = (a, b) => a.price + b.price;
+            if (member.collectiveChecked===true){
+              member.memberSum = (((check.serviceCharge / 100) + 1) * member.dishes.reduce((prev, cur) => {
+                return prev + cur.price;
+              }, 0))+state.checkCollectiveDivided;
+            }
+            else {
+              member.memberSum = ((check.serviceCharge / 100) + 1) * member.dishes.reduce((prev, cur) => {
+                return prev + cur.price;
+              }, 0);
+            }
 
-            member.memberSum = ((check.serviceCharge / 100) + 1) * member.dishes.reduce((prev, cur) => {
-              return prev + cur.price;
-            }, 0);
+            
+
             state.checkTotalSum = state.checkTotalSum + member.memberSum;
-
-            // member.memberSum = member.dishes.reduce(add);
-            // console.log(action.dishName)
-            // console.log(action.dishId)
-            // const remappedCalculateDishes = member.dishes.map((dish, dishIndex) => {
-
-            //   console.log(action.dishId);
-            //   console.log(action.memberId)
-            //   return {
-
-            //     ...dish,
-            //     price: action.dishPrice
-
-            //   }
-
-            //   return dish
-
-            // })
-            // return {
-            //   ...member,
-            //   dishes: remappedDishesPricesInternal
-            // }
 
             return member
           });
+
           
-          const remappedcalculateCollective = check.collectiveDishes.map((dish, memberIndex) => {
-            // const add = (a, b) => a.price + b.price;
-
-            dish.CollectiveSum = ((check.serviceCharge / 100) + 1) * dish.dishes.reduce((prev, cur) => {
-              return prev + cur.price;
-            }, 0);
-            state.checkTotalSum = state.checkTotalSum + dish.memberSum;
-
-            return dish
-          });
 
           return {
             ...check,

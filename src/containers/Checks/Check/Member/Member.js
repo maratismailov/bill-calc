@@ -1,10 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { DebounceInput } from 'react-debounce-input';
-import { addDishPriceToStore, addDishNameToStore, addDishToStore } from '../../../../actions/index'
+import { addDishPriceToStore, addDishNameToStore, addDishToStore, collectiveCheckedToStore } from '../../../../actions/index'
 
 
 class Member extends Component {
+
+
+  handleCheck = () => {
+    const memberId = this.props.memberId;
+    const collectiveChecked = this.props.checks[this.props.checkId - 1].members[this.props.memberId].collectiveChecked
+    this.props.collectiveCheckedToStore(collectiveChecked, memberId);
+  }
 
   addDishHandler = () => {
     const memberId = this.props.memberId;
@@ -24,6 +31,13 @@ class Member extends Component {
   };
 
   render() {
+
+    let msg;
+    if (this.props.checks[this.props.checkId - 1].members[this.props.memberId].collectiveChecked) {
+      msg = "checked";
+    } else {
+      msg = "unchecked";
+    }
     let style = {
       display: "grid"
       // gridGap: '8px',
@@ -40,15 +54,15 @@ class Member extends Component {
               return (
                 <div key={index} className='Dish'>
                   <div >
-                      <DebounceInput className='DishName'
-                        debounceTimeout={800}
-                        value={dish.dish}
-                        onChange={(event) => {
-                          this.addDishNameHandler(event, index)
-                        }}
+                    <DebounceInput className='DishName'
+                      debounceTimeout={800}
+                      value={dish.dish}
+                      onChange={(event) => {
+                        this.addDishNameHandler(event, index)
+                      }}
 
-                        placeholder="Name"
-                      />
+                      placeholder="Name"
+                    />
                   </div>
                   <div >
                     <input className='DishPrice'
@@ -64,6 +78,10 @@ class Member extends Component {
               )
             })
           }
+          <div>
+            <input type="checkbox" onChange={this.handleCheck} defaultChecked={this.props.checks[this.props.checkId - 1].members[this.props.memberId].collectiveChecked} />
+            <p>this box is {msg}.</p>
+          </div>
         </div>
         <button className='Add-dish' onClick={this.addDishHandler}>
           add dish
@@ -81,9 +99,11 @@ const MapStateToProps = state => {
     check: state.check,
     member: state.member,
     // memberId: state.memberId,
-    checkId: state.checkId
+    checkId: state.checkId,
+    collectiveChecked: state.collectiveChecked
   };
 };
+
 
 const MapDispatchToProps = dispatch => {
   return {
@@ -94,11 +114,14 @@ const MapDispatchToProps = dispatch => {
       dispatch(addDishNameToStore(enteredValue, index, memberId)),
 
     addDishPriceToStore: (enteredValue, index, memberId) =>
-      dispatch(addDishPriceToStore(enteredValue, index, memberId))
-    };
-  };
+      dispatch(addDishPriceToStore(enteredValue, index, memberId)),
 
-  export default connect(
-    MapStateToProps,
-    MapDispatchToProps
-  )(Member);
+    collectiveCheckedToStore: (collectiveChecked, memberId) =>
+      dispatch(collectiveCheckedToStore(collectiveChecked, memberId))
+  };
+};
+
+export default connect(
+  MapStateToProps,
+  MapDispatchToProps
+)(Member);

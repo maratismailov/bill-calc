@@ -66,3 +66,9 @@ export const addCollectiveDishPriceToStore = (enteredValue, index) => ({
   dishPrice: enteredValue,
   dishId: index,
 })
+
+export const collectiveCheckedToStore = (collectiveChecked, memberId) => ({
+  type: "COLLECTIVE_CHECKED",
+  collectiveChecked: collectiveChecked,
+  memberId: memberId
+})

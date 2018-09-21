@@ -6,11 +6,11 @@ import { addDishPriceToStore, addDishNameToStore, addDishToStore, collectiveChec
 
 class Member extends Component {
 
-
-  handleCheck = () => {
+  handleCheck = (dishIndex) => {
     const memberId = this.props.memberId;
-    const collectiveChecked = this.props.checks[this.props.checkId - 1].members[this.props.memberId].collectiveChecked
-    this.props.collectiveCheckedToStore(collectiveChecked, memberId);
+    const collectiveChecked = this.props.checks[this.props.checkId - 1].collectiveDishes[dishIndex].members[memberId].checked
+    this.props.collectiveCheckedToStore(collectiveChecked, memberId, dishIndex);
+    console.log(collectiveChecked)
   }
 
   addDishHandler = () => {
@@ -78,10 +78,26 @@ class Member extends Component {
               )
             })
           }
-          <div>
+          {this.props.checks[this.props.checkId - 1].collectiveDishes.map(
+            (dish, dishIndex) => {
+              return (
+                <div key={dishIndex}>
+                  <input 
+                  type="checkbox" 
+                  onChange={()=>this.handleCheck(dishIndex)} 
+                  defaultChecked={dish.members[this.props.memberId].checked}
+                  value={dish.members[this.props.memberId].checked}
+                  />
+                  <p>{dish.collectiveDishName}</p>
+                </div>
+              )
+
+            }
+          )}
+          {/* <div>
             <input type="checkbox" onChange={this.handleCheck} defaultChecked={this.props.checks[this.props.checkId - 1].members[this.props.memberId].collectiveChecked} />
             <p>this box is {msg}.</p>
-          </div>
+          </div> */}
         </div>
         <button className='Add-dish' onClick={this.addDishHandler}>
           add dish
@@ -116,8 +132,8 @@ const MapDispatchToProps = dispatch => {
     addDishPriceToStore: (enteredValue, index, memberId) =>
       dispatch(addDishPriceToStore(enteredValue, index, memberId)),
 
-    collectiveCheckedToStore: (collectiveChecked, memberId) =>
-      dispatch(collectiveCheckedToStore(collectiveChecked, memberId))
+    collectiveCheckedToStore: (collectiveChecked, memberId, dishIndex) =>
+      dispatch(collectiveCheckedToStore(collectiveChecked, memberId, dishIndex))
   };
 };
 

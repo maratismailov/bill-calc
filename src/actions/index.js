@@ -67,8 +67,9 @@ export const addCollectiveDishPriceToStore = (enteredValue, index) => ({
   dishId: index,
 })
 
-export const collectiveCheckedToStore = (collectiveChecked, memberId) => ({
+export const collectiveCheckedToStore = (collectiveChecked, memberId, dishIndex) => ({
   type: "COLLECTIVE_CHECKED",
   collectiveChecked: collectiveChecked,
-  memberId: memberId
+  memberId: memberId,
+  dishIndex: dishIndex
 })

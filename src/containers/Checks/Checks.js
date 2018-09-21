@@ -105,19 +105,26 @@ const singleCheck = [
 
       }
     ],
+    // collectiveDishes: [
+
+    // ],
     memberId: 0,
     memberSum: 0,
     memberName: '',
-    collectiveChecked: true
+    // collectiveChecked: [
+    //   {
+    //     checked: true
+    //   }
+    // ]
   }
 
 ];
 
 const collectiveDishes = [
-  {
-    collectiveDishName: '',
-    collectiveDishPrice: ''
-  }
+  // {
+  //   collectiveDishName: '',
+  //   collectiveDishPrice: ''
+  // }
 ]
 
 const MapStateToProps = state => {

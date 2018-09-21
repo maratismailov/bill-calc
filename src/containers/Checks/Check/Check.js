@@ -45,6 +45,12 @@ class Check extends Component {
   };
 
   render() {
+    // if (this.props.checks[this.props.checkId-1].collectiveDishes.length>=1){
+    //   // this.props.collectiveDishes = this.props.checks[this.props.checkId-1].collectiveDishes
+    // }
+    // else {
+
+    // }
     if (this.props.checks.length > 0) {
       return (
         <div>
@@ -82,38 +88,45 @@ class Check extends Component {
                     }
                   )}
                 </div>
+                {(() => {
+                  switch (this.props.checks[this.props.checkId - 1].collectiveDishes.length) {
+                    case 0: return 'Add your first collective dish';
+                    default: return (
+                      <div className="Dishes-grid">
+                        {this.props.checks[this.props.checkId-1].collectiveDishes.map(
+                          (dish, index) => {
+                            return (
+                              <div key={index} className='Dish'>
+                                <div >
+                                  <DebounceInput className='DishName'
+                                    debounceTimeout={800}
+                                    value={dish.collectiveDishName}
+                                    onChange={(event) => {
+                                      this.addCollectiveDishNameHandler(event, index)
+                                    }}
 
-                <div className="Dishes-grid">
-                  {this.props.checks[this.props.checkId - 1].collectiveDishes.map(
-                    (dish, index) => {
-                      return (
-                        <div key={index} className='Dish'>
-                          <div >
-                            <DebounceInput className='DishName'
-                              debounceTimeout={800}
-                              value={dish.collectiveDishName}
-                              onChange={(event) => {
-                                this.addCollectiveDishNameHandler(event, index)
-                              }}
-
-                              placeholder="Name"
-                            />
-                          </div>
-                          <div >
-                            <input className='DishPrice'
-                              type='number'
-                              onInput={(event) => {
-                                this.addCollectiveDishPriceHandler(event, index)
-                              }}
-                              value={dish.collectiveDishPrice}
-                              placeholder="Price"
-                            />
-                          </div>
-                        </div>
-                      )
-                    })
+                                    placeholder="Name"
+                                  />
+                                </div>
+                                <div >
+                                  <input className='DishPrice'
+                                    type='number'
+                                    onInput={(event) => {
+                                      this.addCollectiveDishPriceHandler(event, index)
+                                    }}
+                                    value={dish.collectiveDishPrice}
+                                    placeholder="Price"
+                                  />
+                                </div>
+                              </div>
+                            )
+                          })
+                        }
+                      </div>
+                    )
                   }
-                </div>
+                })()}
+
                 <button className="Add-check" onClick={this.addMemberHandler}>
                   Add member
                 </button>
@@ -160,7 +173,8 @@ const MapStateToProps = state => {
     checks: state.checks,
     checkId: state.checkId,
     memberId: state.memberId,
-    checkTotalSum: state.checkTotalSum
+    checkTotalSum: state.checkTotalSum,
+    collectiveDishes: state.collectiveDishes
   };
 };
 

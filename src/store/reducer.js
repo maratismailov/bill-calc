@@ -40,7 +40,12 @@ const reducer = (state = initialState, action) => {
         checkTotalSum: 0,
         collectiveDisheId: 0,
         members: action.check,
-        collectiveDishes: action.collectiveDishes,
+        // collectiveDishes: action.collectiveDishes,
+        collectiveDishes: [
+          // {
+
+          // }
+        ],
         collectiveDishesSum: 0,
         collectiveMembers: 0
 
@@ -69,10 +74,15 @@ const reducer = (state = initialState, action) => {
                     price: ''
                   },
                 ],
+                // collectiveDishes: [],
                 memberId: state.memberId,
                 memberName: '',
                 memberSum: 0,
-                collectiveChecked: true
+                // collectiveChecked: [
+                //   {
+                //     checked: true
+                //   }
+                // ]
               }
             ]
           };
@@ -90,16 +100,28 @@ const reducer = (state = initialState, action) => {
     case "ADD_COLLECTIVE":
       const remappedCollective = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
+          // const remappedCollectiveInternal = check.check.map((member, memberIndex) => {
+          //   return {
+          //   }
+          // });
           return {
             ...check,
             collectiveDishes: [
               ...check.collectiveDishes,
               {
                 collectiveDishName: '',
-                collectiveDishPrice: ''
+                collectiveDishPrice: '',
+                members: check.members.map((checked) => {
+                  checked = true
+                  return {
+                    checked
+                  }
+                }
+                )
               },
             ],
-            collectiveDisheId: check.collectiveDisheId + 1
+            collectiveDisheId: check.collectiveDisheId + 1,
+            // members: remappedCollectiveInternal
           };
         }
         return check;
@@ -112,48 +134,57 @@ const reducer = (state = initialState, action) => {
         // dishId:1
       };
 
-      // case "COLLECTIVE_CHECKED":
-      // if (action.collectiveChecked) {
-      //   return {
-      //     ...state,
-      //     collectiveChecked: false
-      //   }
-      // }
-      // else {
-      //   return {
-      //     ...state,
-      //     collectiveChecked: true
-      //   }
-      // }
+    // case "COLLECTIVE_CHECKED":
+    // if (action.collectiveChecked) {
+    //   return {
+    //     ...state,
+    //     collectiveChecked: false
+    //   }
+    // }
+    // else {
+    //   return {
+    //     ...state,
+    //     collectiveChecked: true
+    //   }
+    // }
 
-      case 'COLLECTIVE_CHECKED':
+    case 'COLLECTIVE_CHECKED':
       const remappedCollectiveChecked = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
 
-          const remappedCollectiveCheckedInternal = check.members.map((member, memberIndex) => {
-            if (memberIndex === action.memberId) {
-              if (action.collectiveChecked) {
-                return {
-                  ...member,
-                  collectiveChecked: false
+          const remappedCollectiveCheckedInternal = check.collectiveDishes.map((dish, dishIndex) => {
+            if (dishIndex === action.dishIndex) {
+              const remappedCollectiveMembersInternal = dish.members.map((member, memberIndex) => {
+                if (memberIndex === action.memberId) {
+                  if (action.collectiveChecked) {
+                    console.log('object')
+                    return {
+                      ...member,
+                      checked: false
+                    }
+                  }
+                  else {
+                    return {
+                      ...member,
+                      checked: true
+                    }
+                  }
                 }
-              }
-              else {
-                return {
-                  ...member,
-                  collectiveChecked: true
-                }
-              }
+                return member
+              })
+              return {
+                ...dish,
+                members: remappedCollectiveMembersInternal
+              };
             }
-            return member;
+            return dish;
           });
-
           return {
             ...check,
-            members: remappedCollectiveCheckedInternal
-          };
+            collectiveDishes: remappedCollectiveCheckedInternal
+          }
         }
-        return check;
+        return check
       });
 
       return {
@@ -161,7 +192,43 @@ const reducer = (state = initialState, action) => {
         // dishId: state.dishId + 1,
         checks: remappedCollectiveChecked
       };
-      
+
+    // case 'COLLECTIVE_CHECKED':
+    // const remappedCollectiveChecked = state.checks.map((check, checkIndex) => {
+    //   if (checkIndex === state.checkId - 1) {
+
+    //     const remappedCollectiveCheckedInternal = check.members.map((member, memberIndex) => {
+    //       if (memberIndex === action.memberId) {
+    //         if (action.collectiveChecked) {
+    //           return {
+    //             ...member,
+    //             collectiveChecked: false
+    //           }
+    //         }
+    //         else {
+    //           return {
+    //             ...member,
+    //             collectiveChecked: true
+    //           }
+    //         }
+    //       }
+    //       return member;
+    //     });
+
+    //     return {
+    //       ...check,
+    //       members: remappedCollectiveCheckedInternal
+    //     };
+    //   }
+    //   return check;
+    // });
+
+    // return {
+    //   ...state,
+    //   // dishId: state.dishId + 1,
+    //   checks: remappedCollectiveChecked
+    // };
+
 
     case 'ADD_COLLECTIVE_NAME':
       const remappedCollectiveNames = state.checks.map((check, checkIndex) => {
@@ -195,7 +262,7 @@ const reducer = (state = initialState, action) => {
       const remappedCollectivePrices = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
 
-          
+
 
           const remappedCollectivePricesInternal = check.collectiveDishes.map((dish, index) => {
             if (index === action.dishId) {
@@ -377,26 +444,26 @@ const reducer = (state = initialState, action) => {
       const remappedCalculate = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
 
-          
+
 
           // console.log(check.members.filter(member.collectiveChecked => member.collectiveChecked === true).length);
 
           const remappedCollectiveMembers = check.members.map((member, index) => {
             let collectiveMembers = 0;
-            if (member.collectiveChecked===true) {
-              collectiveMembers = collectiveMembers+1
+            if (member.collectiveChecked === true) {
+              collectiveMembers = collectiveMembers + 1
             }
             return collectiveMembers
           })
 
-          const membersFiltered = remappedCollectiveMembers.filter( member => member === 1)
+          const membersFiltered = remappedCollectiveMembers.filter(member => member === 1)
 
           const dishCollectiveSum = ((check.serviceCharge / 100) + 1) * check.collectiveDishes.reduce((prev, cur) => {
             return prev + cur.collectiveDishPrice;
           }, 0);
           const collectiveMembersNumber = membersFiltered.length
           state.checkTotalSum = state.checkTotalSum + dishCollectiveSum;
-          state.checkCollectiveDivided = dishCollectiveSum/collectiveMembersNumber
+          state.checkCollectiveDivided = dishCollectiveSum / collectiveMembersNumber
           console.log(state.checkCollectiveDivided)
 
           // console.log(membersFiltered.length)
@@ -404,10 +471,10 @@ const reducer = (state = initialState, action) => {
           state.checkTotalSum = 0;
           const remappedcalculateMembers = check.members.map((member, memberIndex) => {
             // const add = (a, b) => a.price + b.price;
-            if (member.collectiveChecked===true){
+            if (member.collectiveChecked === true) {
               member.memberSum = (((check.serviceCharge / 100) + 1) * member.dishes.reduce((prev, cur) => {
                 return prev + cur.price;
-              }, 0))+state.checkCollectiveDivided;
+              }, 0)) + state.checkCollectiveDivided;
             }
             else {
               member.memberSum = ((check.serviceCharge / 100) + 1) * member.dishes.reduce((prev, cur) => {
@@ -415,14 +482,14 @@ const reducer = (state = initialState, action) => {
               }, 0);
             }
 
-            
+
 
             state.checkTotalSum = state.checkTotalSum + member.memberSum;
 
             return member
           });
 
-          
+
 
           return {
             ...check,

@@ -62,30 +62,56 @@ const reducer = (state = initialState, action) => {
     case "ADD_MEMBER":
       const remappedMembers = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
-          return {
-            ...check,
-            members: [
-              ...check.members,
-              {
-                dishes: [
-                  // ...check.members[state.memberId-1].dishes,
-                  {
-                    dish: action.member,
-                    price: ''
-                  },
-                ],
-                // collectiveDishes: [],
-                memberId: state.memberId,
-                memberName: '',
-                memberSum: 0,
-                // collectiveChecked: [
-                //   {
-                //     checked: true
-                //   }
-                // ]
-              }
-            ]
-          };
+          if (state.checks[checkIndex].collectiveDishes.length === 0) {
+            return {
+              ...check,
+              members: [
+                ...check.members,
+                {
+                  dishes: [
+                    {
+                      dish: action.member,
+                      price: ''
+                    },
+                  ],
+                  memberId: state.memberId,
+                  memberName: '',
+                  memberSum: 0,
+                }
+              ]
+            };
+          }
+          else {
+            return {
+              ...check,
+              members: [
+                ...check.members,
+                {
+                  dishes: [
+                    {
+                      dish: action.member,
+                      price: ''
+                    },
+                  ],
+                  memberId: state.memberId,
+                  memberName: '',
+                  memberSum: 0,
+                }
+              ],
+              collectiveDishes: [
+                ...check.collectiveDishes,
+                {
+                  members: check.members.map((checked) => {
+                    checked = true
+                    return {
+                      checked
+                    }
+                  }
+                  )
+                },
+              ],
+            };
+          }
         }
         return check;
       });

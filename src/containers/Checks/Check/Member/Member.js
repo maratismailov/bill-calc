@@ -10,7 +10,6 @@ class Member extends Component {
     const memberId = this.props.memberId;
     const collectiveChecked = this.props.checks[this.props.checkId - 1].collectiveDishes[dishIndex].members[memberId].checked
     this.props.collectiveCheckedToStore(collectiveChecked, memberId, dishIndex);
-    console.log(collectiveChecked)
   }
 
   addDishHandler = () => {

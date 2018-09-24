@@ -41,7 +41,7 @@ class OldCheck extends Component {
 
 const MapStateToProps = state => {
   return {
-    currentCheckIndex: state.OldCheckIndex,
+    currentCheckIndex: state.oldCheckIndex,
     checks: state.checks
   };
 };

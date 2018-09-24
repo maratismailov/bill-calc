@@ -21,6 +21,7 @@ store.subscribe(() => {
     checkId: store.getState().checkId,
     memberId: store.getState().memberId,
     dishId: store.getState().dishId,
+    oldCheckIndex: store.getState().oldCheckIndex
   })
 })
 

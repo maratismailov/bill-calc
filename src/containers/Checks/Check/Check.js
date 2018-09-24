@@ -138,7 +138,7 @@ class Check extends Component {
                   onChange={(event) => {
                     this.addServiceChargeHandler(event)
                   }}
-                  value={this.props.value}
+                  value={this.props.checks[this.props.checkId-1].serviceCharge}
                   placeholder="Service charge"
                 />
                 <button className="Add-check" onClick={this.addCollectiveDish}>

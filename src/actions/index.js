@@ -1,6 +1,6 @@
 export const passOldCheckIndexToStore = index => ({
   type: "OLD_CHECK",
-  OldCheckIndex: index
+  oldCheckIndex: index
 })
 
 export const addCheckToStore = (singleCheck, collectiveDishes) => ({

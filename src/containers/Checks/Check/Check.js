@@ -59,7 +59,7 @@ class Check extends Component {
             exact
             render={() => (
               <div>
-                <h1 className="App">Check</h1>
+                {/* <h1 className="App">Check</h1> */}
                 <Link to="/">
                   <button type="button" className="Back-to-checks">
                     Back to checks
@@ -69,7 +69,7 @@ class Check extends Component {
                   {this.props.checks[this.props.checkId - 1].members.map(
                     (member, index) => {
                       return (
-                        <div key={index}>
+                        <div key={index} className='Member'>
                           <DebounceInput className='DishName'
                             debounceTimeout={800}
                             value={member.memberName}
@@ -81,8 +81,9 @@ class Check extends Component {
 
                           <Member params={this.props.checks} memberId={index} />
                           <div>
-                            {member.memberSum}
+                            Member total sum: {member.memberSum}
                           </div>
+                          <hr></hr>
                         </div>
                       );
                     }
@@ -152,7 +153,7 @@ class Check extends Component {
                     this.addServiceChargeHandler(event)
                   }}
                   value={this.props.checks[this.props.checkId - 1].serviceCharge}
-                  placeholder="Service charge"
+                  placeholder="Service charge %"
                 />
                 
                 <div>

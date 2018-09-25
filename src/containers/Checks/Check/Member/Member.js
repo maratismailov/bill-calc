@@ -30,15 +30,8 @@ class Member extends Component {
   };
 
   render() {
-
-    let msg;
-    if (this.props.checks[this.props.checkId - 1].members[this.props.memberId].collectiveChecked) {
-      msg = "checked";
-    } else {
-      msg = "unchecked";
-    }
     return (
-      <div className='Members'>
+      <div>
         <div>
           {this.props.checks[this.props.checkId - 1].members[this.props.memberId].dishes.map(
             (dish, index) => {

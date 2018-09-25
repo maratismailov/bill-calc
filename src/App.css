@@ -135,12 +135,13 @@
   
 }
 
-.Members {
+.Member {
   margin: 5px;
   margin-bottom: 25px;
 }
 
 .Check {
+  margin: 8px;
   margin-bottom: 25px;
 }
 
@@ -152,7 +153,7 @@
 }
 
 .Input {
-  width: 125px;
+  width: 135px;
   border-radius: 3px;
   border: 1px solid  #999;
   height: 18px;
@@ -182,7 +183,7 @@
 .slider-checkbox input {
   margin: 0px;
   margin-top: 1px;
-  cursor: pointer;
+  /* cursor: pointer; */
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
@@ -199,7 +200,9 @@
 }
 .slider-checkbox input:checked + .label:before {
   background-color: #1877c1;
-  content: "\f00c";
+  /* content: "\f00c"; */
+  content: "\2713";
+  font-size: 18px;
   padding-left: 6px;
 }
 .slider-checkbox input:checked + .label:after {
@@ -217,7 +220,8 @@
   transition: background-color 0.3s, left 0.3s;
 }
 .slider-checkbox .label:before {
-  content: "\f00d";
+  /* content: "\f00d"; */
+  content: "\2715";
   color: #fff;
   box-sizing: border-box;
   font-family: "FontAwesome", sans-serif;
@@ -257,7 +261,7 @@
   font-family: Arial, sans-serif;
 } */
 
-h1 {
+/* h1 {
   text-shadow: -1px 1px rgba(0, 0, 0, 0.5);
   color: #fff;
   font-family: Roboto;
@@ -265,7 +269,7 @@ h1 {
   text-align: center;
   font-size: 42px;
   margin: 36px 0px 24px;
-}
+} */
 
 #wrapper {
   box-sizing: border-box;

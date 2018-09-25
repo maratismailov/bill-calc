@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
+// import './bootstrap.css'
 import Checks from './containers/Checks/Checks';
 
 class App extends Component {

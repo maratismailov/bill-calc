@@ -36,7 +36,7 @@ const reducer = (state = initialState, action) => {
       remappedChecks.push({
         date: new Date().toLocaleString('ru-RU'),
         id: state.checkId,
-        serviceCharge: 0,
+        serviceCharge: '',
         checkTotalSum: 0,
         collectiveDisheId: 0,
         members: action.check,
@@ -504,15 +504,26 @@ const reducer = (state = initialState, action) => {
               }
               return sumMember
             })
-            console.log(remappedSumPerMember);
+            // console.log(remappedSumPerMember);
             const add = (a, b) => a + b;
-            const sumPerMember = remappedSumPerMember.reduce(add);
-            console.log(sumPerMember)
-            member.memberSum = ((check.serviceCharge / 100) + 1) * (member.dishes.reduce((prev, cur) => {
-              return prev + cur.price;
-            }, 0) + sumPerMember).toFixed(2)
+            let sumPerMember = 0;
+            if (remappedSumPerMember.length>0) {
+              sumPerMember = remappedSumPerMember.reduce(add);
+            }
+            // const sumPerMember = remappedSumPerMember.reduce(add);
+            // console.log(sumPerMember)
+            let memberDishes = 0;
+            if (member.dishes.length>0) {
+              memberDishes = (member.dishes.reduce((prev, cur) => {
+                return prev + cur.price;
+              }, 0) + sumPerMember)
+            }
+            memberDishes = Number(memberDishes);
 
-            state.checkTotalSum = state.checkTotalSum + member.memberSum;
+            member.memberSum = ((check.serviceCharge / 100) + 1) * memberDishes.toFixed(2)
+            console.log(member.memberSum)
+
+            state.checkTotalSum = state.checkTotalSum + ((check.serviceCharge / 100) + 1) * memberDishes;
             return member
           });
           return {

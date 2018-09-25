@@ -61,11 +61,11 @@ class Check extends Component {
               <div>
                 <h1 className="App">Check</h1>
                 <Link to="/">
-                  <button type="button" className="Back-to-check">
+                  <button type="button" className="Back-to-checks">
                     Back to checks
                   </button>
                 </Link>
-                <div className="Members-grid">
+                <div className='Check'>
                   {this.props.checks[this.props.checkId - 1].members.map(
                     (member, index) => {
                       return (
@@ -88,48 +88,61 @@ class Check extends Component {
                     }
                   )}
                 </div>
-                {(() => {
-                  switch (this.props.checks[this.props.checkId - 1].collectiveDishes.length) {
-                    case 0: return 'Add your first collective dish';
-                    default: return (
-                      <div className="Dishes-grid">
-                        {this.props.checks[this.props.checkId-1].collectiveDishes.map(
-                          (dish, index) => {
-                            return (
-                              <div key={index} className='Dish'>
-                                <div >
-                                  <DebounceInput className='DishName'
-                                    debounceTimeout={800}
-                                    value={dish.collectiveDishName}
-                                    onChange={(event) => {
-                                      this.addCollectiveDishNameHandler(event, index)
-                                    }}
-
-                                    placeholder="Name"
-                                  />
-                                </div>
-                                <div >
-                                  <input className='DishPrice'
-                                    type='number'
-                                    onInput={(event) => {
-                                      this.addCollectiveDishPriceHandler(event, index)
-                                    }}
-                                    value={dish.collectiveDishPrice}
-                                    placeholder="Price"
-                                  />
-                                </div>
-                              </div>
-                            )
-                          })
-                        }
-                      </div>
-                    )
-                  }
-                })()}
 
                 <button className="Add-check" onClick={this.addMemberHandler}>
                   Add member
                 </button>
+
+                
+
+                <div>
+                  {(() => {
+                    switch (this.props.checks[this.props.checkId - 1].collectiveDishes.length) {
+                      case 0: return '';
+                      default: return (
+                        <div className="Dishes-grid">
+                          {this.props.checks[this.props.checkId - 1].collectiveDishes.map(
+                            (dish, index) => {
+                              return (
+                                <div key={index} className='Dish'>
+                                  <div >
+                                    <DebounceInput className='DishName'
+                                      debounceTimeout={800}
+                                      value={dish.collectiveDishName}
+                                      onChange={(event) => {
+                                        this.addCollectiveDishNameHandler(event, index)
+                                      }}
+
+                                      placeholder="Name"
+                                    />
+                                  </div>
+                                  <div >
+                                    <input className='DishPrice'
+                                      type='number'
+                                      onInput={(event) => {
+                                        this.addCollectiveDishPriceHandler(event, index)
+                                      }}
+                                      value={dish.collectiveDishPrice}
+                                      placeholder="Price"
+                                    />
+                                  </div>
+                                </div>
+                              )
+                            })
+                          }
+                        </div>
+                      )
+                    }
+                  })()
+                  }
+                </div>
+                <button className="Back-to-checks" onClick={this.addCollectiveDish}>
+                  Add collective dish
+                </button>
+                <br></br>
+
+
+
                 <button className="Add-check" onClick={this.calculateHandler}>
                   Calculate
                 </button>
@@ -138,12 +151,10 @@ class Check extends Component {
                   onChange={(event) => {
                     this.addServiceChargeHandler(event)
                   }}
-                  value={this.props.checks[this.props.checkId-1].serviceCharge}
+                  value={this.props.checks[this.props.checkId - 1].serviceCharge}
                   placeholder="Service charge"
                 />
-                <button className="Add-check" onClick={this.addCollectiveDish}>
-                  Add collective dish
-                </button>
+                
                 <div>
                   Total Sum: {this.props.checks[this.props.checkId - 1].checkTotalSum}
                 </div>

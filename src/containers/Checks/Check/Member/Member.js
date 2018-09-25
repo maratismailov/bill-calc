@@ -37,17 +37,9 @@ class Member extends Component {
     } else {
       msg = "unchecked";
     }
-    let style = {
-      display: "grid"
-      // gridGap: '8px',
-      /* grid-template-rows: 50fr, 30fr; */
-      /* grid-template-columns: 200px, 200px; */
-      // gridTemplateAreas:
-      // "'Dish1 Dish2 Dish3'"
-    };
     return (
-      <div className="Members-grid" style={style}>
-        <div className="Dishes-grid">
+      <div className='Members'>
+        <div>
           {this.props.checks[this.props.checkId - 1].members[this.props.memberId].dishes.map(
             (dish, index) => {
               return (
@@ -80,14 +72,15 @@ class Member extends Component {
           {this.props.checks[this.props.checkId - 1].collectiveDishes.map(
             (dish, dishIndex) => {
               return (
-                <div key={dishIndex}>
+                <div key={dishIndex} className='slider-checkbox'>
                   <input 
                   type="checkbox" 
                   onChange={()=>this.handleCheck(dishIndex)} 
                   defaultChecked={dish.members[this.props.memberId].checked}
                   value={dish.members[this.props.memberId].checked}
                   />
-                  <p>{dish.collectiveDishName}</p>
+                  <label className="label" for="1">{dish.collectiveDishName}</label>
+                  {/* {dish.collectiveDishName} */}
                 </div>
               )
 

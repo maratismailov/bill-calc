@@ -34,7 +34,7 @@
   font-size: 35px;
   line-height: 1.33;
   border-radius: 50%;
-  background-color: lightgreen;
+  background-color:  #00cc66;
   border: none;
 }
 
@@ -45,7 +45,7 @@
   font-size: 15px;
   line-height: 1.33;
   border-radius: 15px;
-  background-color: lightgreen;
+  background-color:  #00cc66;
   border: none;
   margin: 5px;
   margin-bottom: 25px;
@@ -58,7 +58,7 @@
   font-size: 15px;
   line-height: 1.33;
   border-radius: 15px;
-  background-color: lightgreen;
+  background-color:  #00cc66;
   border: none;
   margin: 5px;
 }
@@ -71,7 +71,7 @@
   text-align: center;
   line-height: 1.33;
   border-radius: 15px;
-  background-color: lightgreen;
+  background-color:  #00cc66;
   border: none;
   margin: 5px;
 }
@@ -83,7 +83,7 @@
   font-size: 15px;
   line-height: 1.33;
   border-radius: 15px;
-  background-color: lightgreen;
+  background-color:  #00cc66;
   border: none;
   /* margin: 5px; */
 }
@@ -199,7 +199,7 @@
   height: 20px;
 }
 .slider-checkbox input:checked + .label:before {
-  background-color: #1877c1;
+  background-color: #00cc66;
   /* content: "\f00c"; */
   content: "\2713";
   font-size: 18px;

@@ -71,7 +71,8 @@ const reducer = (state = initialState, action) => {
                   dishes: [
                     {
                       dish: action.member,
-                      price: ''
+                      price: '',
+                      showDelete: false
                     },
                   ],
                   memberId: state.memberId,
@@ -139,6 +140,7 @@ const reducer = (state = initialState, action) => {
                 sumPerMember: 0,
                 collectiveDishName: '',
                 collectiveDishPrice: '',
+                showDelete: false,
                 members: check.members.map((checked) => {
                   checked = true
                   return {
@@ -162,19 +164,35 @@ const reducer = (state = initialState, action) => {
         // dishId:1
       };
 
-    // case "COLLECTIVE_CHECKED":
-    // if (action.collectiveChecked) {
-    //   return {
-    //     ...state,
-    //     collectiveChecked: false
-    //   }
-    // }
-    // else {
-    //   return {
-    //     ...state,
-    //     collectiveChecked: true
-    //   }
-    // }
+      case "DELETE_COLLECTIVE":
+      const remappedDeleteCollective = state.checks.map((check, checkIndex) => {
+        if (checkIndex === state.checkId - 1) {
+          return {
+            ...check,
+            collectiveDishes: check.collectiveDishes.filter((dish, index) => index !== action.dishId)
+
+
+                  //   if (memberIndex === action.memberId) {
+                  //     console.log('delete')
+                  //     return {
+                  //       ...member,
+                  //       dishes: member.dishes.filter((dish, index) => index !== action.dishId)
+                  //     }
+                  //   }
+                  //   return member;
+                  // });
+               
+          };
+        }
+        return check;
+      });
+
+      return {
+        ...state,
+        checks: remappedDeleteCollective,
+        // dishId:1
+      };
+    
 
     case 'COLLECTIVE_CHECKED':
       const remappedCollectiveChecked = state.checks.map((check, checkIndex) => {
@@ -256,6 +274,32 @@ const reducer = (state = initialState, action) => {
     //   checks: remappedCollectiveChecked
     // };
 
+    case 'SHOW_DELETE_COLLECTIVE':
+    const remappedCollectiveDelete = state.checks.map((check, checkIndex) => {
+      if (checkIndex === state.checkId - 1) {
+
+        const remappedCollectiveDeleteInternal = check.collectiveDishes.map((dish, index) => {
+          if (index === action.dishId) {
+            return {
+              ...dish,
+              showDelete: true
+            }
+          }
+          return dish;
+        });
+        return {
+          ...check,
+          collectiveDishes: remappedCollectiveDeleteInternal
+        };
+      }
+      return check;
+    });
+
+    return {
+      ...state,
+      // dishId: state.dishId + 1,
+      checks: remappedCollectiveDelete
+    };
 
     case 'ADD_COLLECTIVE_NAME':
       const remappedCollectiveNames = state.checks.map((check, checkIndex) => {
@@ -295,7 +339,7 @@ const reducer = (state = initialState, action) => {
             if (index === action.dishId) {
               return {
                 ...dish,
-                collectiveDishPrice: action.dishPrice
+                collectiveDishPrice: Number(action.dishPrice)
               }
             }
             return dish;
@@ -327,7 +371,8 @@ const reducer = (state = initialState, action) => {
                   ...member.dishes,
                   {
                     dish: action.dish,
-                    price: ''
+                    price: '',
+                    showDelete: false
                   }
                 ]
               }
@@ -349,7 +394,75 @@ const reducer = (state = initialState, action) => {
         checks: remappedDishes
       };
 
+    case 'SHOW_DELETE':
+      const remappedDishesDelete = state.checks.map((check, checkIndex) => {
+        if (checkIndex === state.checkId - 1) {
+          const remappedDishesDeleteMembers = check.members.map((member, memberIndex) => {
+            if (memberIndex === action.memberId) {
+              // console.log(action.dishName)
+              // console.log(action.dishId)
+              const remappedDishesDeleteInternal = member.dishes.map((dish, dishIndex) => {
+                if (dishIndex === action.dishId) {
+                  return {
 
+                    ...dish,
+                    showDelete: true
+
+                  }
+                }
+                return dish
+
+              })
+              return {
+                ...member,
+                dishes: remappedDishesDeleteInternal
+              }
+            }
+            return member
+          });
+
+          return {
+            ...check,
+            members: remappedDishesDeleteMembers
+          };
+        }
+        return check;
+      });
+
+      return {
+        ...state,
+        dishId: state.dishId + 1,
+        checks: remappedDishesDelete
+      };
+
+      case 'DELETE_DISH':
+      const remappedDishesDeleteItem = state.checks.map((check, checkIndex) => {
+        if (checkIndex === state.checkId - 1) {
+
+          const remappedDishesDeleteItemInternal = check.members.map((member, memberIndex) => {
+            if (memberIndex === action.memberId) {
+              console.log('delete')
+              return {
+                ...member,
+                dishes: member.dishes.filter((dish, index) => index !== action.dishId)
+              }
+            }
+            return member;
+          });
+
+          return {
+            ...check,
+            members: remappedDishesDeleteItemInternal
+          };
+        }
+        return check;
+      });
+
+      return {
+        ...state,
+        dishId: state.dishId + 1,
+        checks: remappedDishesDeleteItem
+      };
 
     case 'ADD_DISH_NAME':
       const remappedDishesNames = state.checks.map((check, checkIndex) => {
@@ -507,13 +620,13 @@ const reducer = (state = initialState, action) => {
             // console.log(remappedSumPerMember);
             const add = (a, b) => a + b;
             let sumPerMember = 0;
-            if (remappedSumPerMember.length>0) {
+            if (remappedSumPerMember.length > 0) {
               sumPerMember = remappedSumPerMember.reduce(add);
             }
             // const sumPerMember = remappedSumPerMember.reduce(add);
             // console.log(sumPerMember)
             let memberDishes = 0;
-            if (member.dishes.length>0) {
+            if (member.dishes.length > 0) {
               memberDishes = (member.dishes.reduce((prev, cur) => {
                 return prev + cur.price;
               }, 0) + sumPerMember)

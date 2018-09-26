@@ -4,7 +4,7 @@ import { Route, Link } from "react-router-dom";
 import Member from "./Member/Member";
 import Checks from "../Checks";
 import { DebounceInput } from 'react-debounce-input';
-import { addMemberNameToStore, addServiceChargeToStore, addMemberToStore, addCollectiveDishToStore, addCollectiveDishNameToStore, addCollectiveDishPriceToStore, calculate } from '../../../actions/index'
+import { addMemberNameToStore, addServiceChargeToStore, addMemberToStore, addCollectiveDishToStore, addCollectiveDishNameToStore, addCollectiveDishPriceToStore, showDeleteCollective, deleteCollectiveFromStore, calculate } from '../../../actions/index'
 
 class Check extends Component {
 
@@ -38,11 +38,22 @@ class Check extends Component {
     this.props.addCollectiveDishNameToStore(enteredValue, index);
   };
 
+  showDeleteCollectiveHandler = (index) => {
+    // const memberId = this.props.memberId;
+    this.props.showDeleteCollective(index);
+  };
+
   addCollectiveDishPriceHandler = (event, index) => {
     const enteredValue = event.target.value;
     // const memberId = this.props.memberId;
     this.props.addCollectiveDishPriceToStore(enteredValue, index);
   };
+
+  deleteHandler = (index) => {
+    // const memberId = this.props.memberId;
+    this.props.deleteCollectiveFromStore(index)
+    console.log('2')
+  }
 
   render() {
     // if (this.props.checks[this.props.checkId-1].collectiveDishes.length>=1){
@@ -94,14 +105,14 @@ class Check extends Component {
                   Add member
                 </button>
 
-                
+
 
                 <div>
                   {(() => {
                     switch (this.props.checks[this.props.checkId - 1].collectiveDishes.length) {
                       case 0: return '';
                       default: return (
-                        <div className="Dishes-grid">
+                        <div className='Check'>
                           {this.props.checks[this.props.checkId - 1].collectiveDishes.map(
                             (dish, index) => {
                               return (
@@ -126,6 +137,22 @@ class Check extends Component {
                                       value={dish.collectiveDishPrice}
                                       placeholder="Price"
                                     />
+                                  </div>
+                                  <div>
+                                    {(() => {
+                                      switch (dish.showDelete) {
+                                        case false: return (
+                                          <div className='Delete' onClick={() => this.showDeleteCollectiveHandler(index)}> {'\u2715'} </div>
+                                        );
+                                        case true: return (
+                                          <div className='Show-delete'>
+                                            <div onClick={() => this.deleteHandler(index)} className='Delete'> Delete?</div>
+                                            <div>Cancel</div>
+                                          </div>
+                                        )
+                                      }
+                                    })()
+                                    }
                                   </div>
                                 </div>
                               )
@@ -155,7 +182,7 @@ class Check extends Component {
                   value={this.props.checks[this.props.checkId - 1].serviceCharge}
                   placeholder="Service charge %"
                 />
-                
+
                 <div>
                   Total Sum: {this.props.checks[this.props.checkId - 1].checkTotalSum}
                 </div>
@@ -211,7 +238,13 @@ const MapDispatchToProps = dispatch => {
       dispatch(addCollectiveDishNameToStore(enteredValue, index, memberId)),
 
     addCollectiveDishPriceToStore: (enteredValue, index, memberId) =>
-      dispatch(addCollectiveDishPriceToStore(enteredValue, index, memberId))
+      dispatch(addCollectiveDishPriceToStore(enteredValue, index, memberId)),
+
+    showDeleteCollective: index =>
+      dispatch(showDeleteCollective(index)),
+
+    deleteCollectiveFromStore: index =>
+      dispatch(deleteCollectiveFromStore(index)),
   };
 };
 

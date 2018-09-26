@@ -51,6 +51,29 @@
   margin-bottom: 25px;
 }
 
+.Show-delete {
+  display: grid;
+  color: rgb(185, 36, 36);
+  width: 25px;
+  height: 23px;
+  font-size: 23px;
+  line-height: 20px;
+  /* margin: 8px;
+  margin-top: 0px; */
+  grid-gap: 8px;
+  grid-template-columns: 50px 50px 50px;
+  /* border-radius: 15px; */
+  /* background-color:  #00cc66; */
+  /* border: none; */
+}
+
+.Delete {
+  width: 25px;
+  height: 23px;
+  font-size: 15px;
+  line-height: 20px;
+}
+
 .Back-to-checks {
   width: 159px;
   height: 35px;
@@ -95,8 +118,9 @@
 .Dish {
   /* width: auto; */
   margin: 8px;
+  margin-left: 0px;
   display: grid;
-  grid-template-columns: 189px 59px;
+  grid-template-columns: 189px 89px 250px;
   grid-gap: 8px;
   /* grid-template-rows: 25px, 35px; */
   grid-template-areas:
@@ -124,7 +148,9 @@
 
 .Dishes-grid {
   display: grid;
-  grid-gap: 8px;
+  margin: 8px;
+  margin-top: 0px;
+  /* grid-gap: 8px; */
   grid-template-rows: 50px, 30fr;
   /* grid-template-columns: 200px, 200px; */
   grid-template-areas:
@@ -138,6 +164,7 @@
 .Member {
   margin: 5px;
   margin-bottom: 25px;
+  margin-left: 0px;
 }
 
 .Check {

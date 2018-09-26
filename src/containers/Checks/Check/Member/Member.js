@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { DebounceInput } from 'react-debounce-input';
-import { addDishPriceToStore, addDishNameToStore, addDishToStore, collectiveCheckedToStore } from '../../../../actions/index'
+import { addDishPriceToStore, addDishNameToStore, addDishToStore, collectiveCheckedToStore, showDelete, deleteFromStore } from '../../../../actions/index'
 
 
 class Member extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { showMe: false };
+  }
 
   handleCheck = (dishIndex) => {
     const memberId = this.props.memberId;
@@ -16,6 +21,18 @@ class Member extends Component {
     const memberId = this.props.memberId;
     this.props.addDishToStore(memberId);
   };
+
+  showDeleteHandler = index => {
+    console.log('object');
+    const memberId = this.props.memberId;
+    this.props.showDelete(index, memberId);
+  }
+
+  deleteHandler = (index) => {
+    const memberId = this.props.memberId;
+    this.props.deleteFromStore(index, memberId)
+    console.log('2')
+  }
 
   addDishNameHandler = (event, index) => {
     const enteredValue = event.target.value;
@@ -30,6 +47,14 @@ class Member extends Component {
   };
 
   render() {
+    var showDelete = (
+      <div className='Show-delete'>
+        <div onClick={this.deleteHandler} className='Delete'> Delete?</div>
+        <div>Cancel</div>
+      </div>
+    )
+    var deleteDiv = (<div className='Delete' onClick={this.showDeleteHandler}> {'\u2715'} </div>);
+
     return (
       <div>
         <div>
@@ -47,6 +72,8 @@ class Member extends Component {
 
                       placeholder="Name"
                     />
+
+
                   </div>
                   <div >
                     <input className='DishPrice'
@@ -58,6 +85,23 @@ class Member extends Component {
                       placeholder="Price"
                     />
                   </div>
+                  <div>
+                    {(() => {
+                      switch (dish.showDelete) {
+                        case false: return (
+                          <div className='Delete' onClick={() => this.showDeleteHandler(index)}> {'\u2715'} </div>
+                        );
+                        case true: return (
+                          <div className='Show-delete'>
+                            <div onClick={() => this.deleteHandler(index)} className='Delete'> Delete?</div>
+                            <div>Cancel</div>
+                          </div>
+                        )
+                      }
+                    })()
+                    }
+                  </div>
+
                 </div>
               )
             })
@@ -66,11 +110,11 @@ class Member extends Component {
             (dish, dishIndex) => {
               return (
                 <div key={dishIndex} className='slider-checkbox'>
-                  <input 
-                  type="checkbox" 
-                  onChange={()=>this.handleCheck(dishIndex)} 
-                  defaultChecked={dish.members[this.props.memberId].checked}
-                  value={dish.members[this.props.memberId].checked}
+                  <input
+                    type="checkbox"
+                    onChange={() => this.handleCheck(dishIndex)}
+                    defaultChecked={dish.members[this.props.memberId].checked}
+                    value={dish.members[this.props.memberId].checked}
                   />
                   <label className="label" for="1">{dish.collectiveDishName}</label>
                   {/* {dish.collectiveDishName} */}
@@ -118,7 +162,13 @@ const MapDispatchToProps = dispatch => {
       dispatch(addDishPriceToStore(enteredValue, index, memberId)),
 
     collectiveCheckedToStore: (collectiveChecked, memberId, dishIndex) =>
-      dispatch(collectiveCheckedToStore(collectiveChecked, memberId, dishIndex))
+      dispatch(collectiveCheckedToStore(collectiveChecked, memberId, dishIndex)),
+
+    showDelete: (index, memberId) =>
+      dispatch(showDelete(index, memberId)),
+
+    deleteFromStore: (index, memberId) =>
+      dispatch(deleteFromStore(index, memberId))
   };
 };
 

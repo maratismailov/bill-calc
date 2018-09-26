@@ -73,3 +73,26 @@ export const collectiveCheckedToStore = (collectiveChecked, memberId, dishIndex)
   memberId: memberId,
   dishIndex: dishIndex
 })
+
+export const showDelete = (index, memberId)=> ({
+  type: "SHOW_DELETE",
+  dishId: index,
+  memberId: memberId
+})
+
+export const deleteFromStore = (index, memberId)=> ({
+  type: "DELETE_DISH",
+  dishId: index,
+  memberId: memberId
+})
+
+export const deleteCollectiveFromStore = (index, memberId)=> ({
+  type: "DELETE_COLLECTIVE",
+  dishId: index,
+  // memberId: memberId
+})
+
+export const showDeleteCollective = index => ({
+  type: "SHOW_DELETE_COLLECTIVE",
+  dishId: index
+})

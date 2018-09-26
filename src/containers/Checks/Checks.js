@@ -101,8 +101,8 @@ const singleCheck = [
     dishes: [
       {
         dish: '',
-        price: ''
-
+        price: '',
+        showDelete: false
       }
     ],
     // collectiveDishes: [

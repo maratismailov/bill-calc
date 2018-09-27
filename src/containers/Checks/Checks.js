@@ -74,17 +74,13 @@ class Checks extends Component {
           render={(props) => (
             <div>
               <Link to="/">
-                <button type="button" className="Add-check">
+                <button type="button" className='Back-to-checks'>
                   Back to checks
                 </button>
               </Link>
 
               <div >
-                <Link to="/OldCheck">
-                  <div>
-                    <OldCheck {...props} date={this.props.checks[0].date} />
-                  </div>
-                </Link>
+                <OldCheck {...props} date={this.props.checks[0].date} />
               </div>
 
             </div>

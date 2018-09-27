@@ -109,98 +109,100 @@ class Check extends Component {
 
                           <Member params={this.props.checks} memberId={index} />
                           <div>
-                            Member total sum: {member.memberSum}
+                            Member total sum: {(member.memberSum).toFixed(2)}
                           </div>
                         </div>
                       );
                     }
                   )}
                 </div>
-
-                <button className="Add-check" onClick={this.addMemberHandler}>
-                  Add member
+                <hr></hr>
+                <div className='Check-bottom'>
+                  <button className="Add-member" onClick={this.addMemberHandler}>
+                    Add member
                 </button>
 
 
 
-                <div>
-                  {(() => {
-                    switch (this.props.checks[this.props.checkId - 1].collectiveDishes.length) {
-                      case 0: return '';
-                      default: return (
-                        <div className='Check'>
-                          {this.props.checks[this.props.checkId - 1].collectiveDishes.map(
-                            (dish, index) => {
-                              return (
-                                <div key={index} className='Dish'>
-                                  <div >
-                                    <DebounceInput className='DishName'
-                                      debounceTimeout={800}
-                                      value={dish.collectiveDishName}
-                                      onChange={(event) => {
-                                        this.addCollectiveDishNameHandler(event, index)
-                                      }}
+                  <div>
+                    {(() => {
+                      switch (this.props.checks[this.props.checkId - 1].collectiveDishes.length) {
+                        case 0: return '';
+                        default: return (
+                          <div className='Check'>
+                            {this.props.checks[this.props.checkId - 1].collectiveDishes.map(
+                              (dish, index) => {
+                                return (
+                                  <div key={index} className='Dish'>
+                                    <div >
+                                      <DebounceInput className='DishName'
+                                        debounceTimeout={800}
+                                        value={dish.collectiveDishName}
+                                        onChange={(event) => {
+                                          this.addCollectiveDishNameHandler(event, index)
+                                        }}
 
-                                      placeholder="Name"
-                                    />
-                                  </div>
-                                  <div >
-                                    <input className='DishPrice'
-                                      type='number'
-                                      onInput={(event) => {
-                                        this.addCollectiveDishPriceHandler(event, index)
-                                      }}
-                                      value={dish.collectiveDishPrice}
-                                      placeholder="Price"
-                                    />
-                                  </div>
-                                  <div>
-                                    {(() => {
-                                      switch (dish.showDelete) {
-                                        case false: return (
-                                          <div className='Delete' onClick={() => this.showDeleteCollectiveHandler(index)}> {'\u2715'} </div>
-                                        );
-                                        case true: return (
-                                          <div className='Show-delete'>
-                                            <div onClick={() => this.deleteHandler(index)} className='Delete'> Delete?</div>
-                                            <div onClick={() => this.hideDeleteCollectiveHandler(index)} className='Delete'>Cancel</div>
-                                          </div>
-                                        )
+                                        placeholder="Name"
+                                      />
+                                    </div>
+                                    <div >
+                                      <input className='DishPrice'
+                                        type='number'
+                                        onInput={(event) => {
+                                          this.addCollectiveDishPriceHandler(event, index)
+                                        }}
+                                        value={dish.collectiveDishPrice}
+                                        placeholder="Price"
+                                      />
+                                    </div>
+                                    <div>
+                                      {(() => {
+                                        switch (dish.showDelete) {
+                                          case false: return (
+                                            <div className='Delete' onClick={() => this.showDeleteCollectiveHandler(index)}> {'\u2715'} </div>
+                                          );
+                                          case true: return (
+                                            <div className='Show-delete'>
+                                              <div onClick={() => this.deleteHandler(index)} className='Delete'> Delete?</div>
+                                              <div onClick={() => this.hideDeleteCollectiveHandler(index)} className='Delete'>Cancel</div>
+                                            </div>
+                                          )
+                                        }
+                                      })()
                                       }
-                                    })()
-                                    }
+                                    </div>
                                   </div>
-                                </div>
-                              )
-                            })
-                          }
-                        </div>
-                      )
+                                )
+                              })
+                            }
+                          </div>
+                        )
+                      }
+                    })()
                     }
-                  })()
-                  }
-                </div>
-                <button className="Back-to-checks" onClick={this.addCollectiveDish}>
-                  Add collective dish
+                  </div>
+                  <button className='Add-collective' onClick={this.addCollectiveDish}>
+                    Add collective dish
                 </button>
-                <br></br>
+                  <br></br>
 
 
 
-                <button className="Add-check" onClick={this.calculateHandler}>
-                  Calculate
+                  <button className="Add-member" onClick={this.calculateHandler}>
+                    Calculate
                 </button>
-                <input className='Input'
-                  type='number'
-                  onChange={(event) => {
-                    this.addServiceChargeHandler(event)
-                  }}
-                  value={this.props.checks[this.props.checkId - 1].serviceCharge}
-                  placeholder="Service charge %"
-                />
+                  <input className='Input'
+                    type='number'
+                    onChange={(event) => {
+                      this.addServiceChargeHandler(event)
+                    }}
+                    value={this.props.checks[this.props.checkId - 1].serviceCharge}
+                    placeholder="Service charge %"
+                  />
 
-                <div>
-                  Total Sum: {this.props.checks[this.props.checkId - 1].checkTotalSum}
+                  <div>
+                    Total Sum: {(this.props.checks[this.props.checkId - 1].checkTotalSum).toFixed(2)}
+                  </div>
                 </div>
               </div>
             )}

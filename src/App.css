@@ -68,6 +68,7 @@
 }
 
 .Delete {
+  color: rgb(185, 36, 36);
   width: 25px;
   height: 23px;
   font-size: 15px;
@@ -120,7 +121,7 @@
   margin: 8px;
   margin-left: 0px;
   display: grid;
-  grid-template-columns: 189px 89px 250px;
+  grid-template-columns: 135px 69px 250px;
   grid-gap: 8px;
   /* grid-template-rows: 25px, 35px; */
   grid-template-areas:
@@ -129,7 +130,7 @@
 .DishName {
   grid-area: DishName;
   grid-column: 1/1;
-  width: 159px;
+  width: 125px;
   border-radius: 3px;
   border: 1px solid  #999;
   height: 18px;
@@ -139,7 +140,7 @@
 .DishPrice {
   grid-area: DishPrice;
   grid-column: 2/2;
-  width: 89px;
+  width: 59px;
   border-radius: 3px;
   border: 1px solid  #999;
   height: 18px;
@@ -161,14 +162,27 @@
   
 }
 
-.Member {
-  margin: 5px;
-  margin-bottom: 25px;
+.Member1 {
+  margin: 0px;
+  padding: 5px;
+  padding-bottom: 25px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  margin-left: 0px;
+  background-color: rgb(193, 233, 235)
+}
+
+.Member2 {
+  margin: 0px;
+  padding: 5px;
+  padding-bottom: 25px;
+  margin-bottom: 0px;
+  margin-top: 0px;
   margin-left: 0px;
 }
 
 .Check {
-  margin: 8px;
+  margin: 0px;
   margin-bottom: 25px;
 }
 
@@ -279,14 +293,15 @@
   margin: 0px;
 }
 
-/* body {
-  background-image: url(https://i.imgur.com/pJEuUCS.jpg);
+body {
+  /* width: 250px; */
+  /* background-image: url(https://i.imgur.com/pJEuUCS.jpg);
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
   background-color: #000;
-  font-family: Arial, sans-serif;
-} */
+  font-family: Arial, sans-serif; */
+}
 
 /* h1 {
   text-shadow: -1px 1px rgba(0, 0, 0, 0.5);

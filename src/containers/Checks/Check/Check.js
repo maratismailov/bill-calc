@@ -4,7 +4,7 @@ import { Route, Link } from "react-router-dom";
 import Member from "./Member/Member";
 import Checks from "../Checks";
 import { DebounceInput } from 'react-debounce-input';
-import { addMemberNameToStore, addServiceChargeToStore, addMemberToStore, addCollectiveDishToStore, addCollectiveDishNameToStore, addCollectiveDishPriceToStore, showDeleteCollective, deleteCollectiveFromStore, calculate } from '../../../actions/index'
+import { addMemberNameToStore, addServiceChargeToStore, addMemberToStore, addCollectiveDishToStore, addCollectiveDishNameToStore, addCollectiveDishPriceToStore, showDeleteCollective, hideDeleteCollective, deleteCollectiveFromStore, calculate } from '../../../actions/index'
 
 class Check extends Component {
 
@@ -43,6 +43,12 @@ class Check extends Component {
     this.props.showDeleteCollective(index);
   };
 
+  hideDeleteCollectiveHandler = (index) => {
+    // const memberId = this.props.memberId;
+    this.props.hideDeleteCollective(index);
+  };
+
+
   addCollectiveDishPriceHandler = (event, index) => {
     const enteredValue = event.target.value;
     // const memberId = this.props.memberId;
@@ -79,8 +85,19 @@ class Check extends Component {
                 <div className='Check'>
                   {this.props.checks[this.props.checkId - 1].members.map(
                     (member, index) => {
+                      var memberClassName = 'Member1'
+                      const isEven = index => {
+                        return (index % 2)
+                      }
+                      if (isEven(index) === 0) {
+                        memberClassName = 'Member1'
+                      }
+                      else {
+                        memberClassName = 'Member2'
+                      }
                       return (
-                        <div key={index} className='Member'>
+                        <div key={index} className={memberClassName}>
+                          {/* <hr></hr> */}
                           <DebounceInput className='DishName'
                             debounceTimeout={800}
                             value={member.memberName}
@@ -94,7 +111,6 @@ class Check extends Component {
                           <div>
                             Member total sum: {member.memberSum}
                           </div>
-                          <hr></hr>
                         </div>
                       );
                     }
@@ -147,7 +163,7 @@ class Check extends Component {
                                         case true: return (
                                           <div className='Show-delete'>
                                             <div onClick={() => this.deleteHandler(index)} className='Delete'> Delete?</div>
-                                            <div>Cancel</div>
+                                            <div onClick={() => this.hideDeleteCollectiveHandler(index)} className='Delete'>Cancel</div>
                                           </div>
                                         )
                                       }
@@ -242,6 +258,9 @@ const MapDispatchToProps = dispatch => {
 
     showDeleteCollective: index =>
       dispatch(showDeleteCollective(index)),
+
+    hideDeleteCollective: index =>
+      dispatch(hideDeleteCollective(index)),
 
     deleteCollectiveFromStore: index =>
       dispatch(deleteCollectiveFromStore(index)),

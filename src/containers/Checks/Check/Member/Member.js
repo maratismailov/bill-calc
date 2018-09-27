@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { DebounceInput } from 'react-debounce-input';
-import { addDishPriceToStore, addDishNameToStore, addDishToStore, collectiveCheckedToStore, showDelete, deleteFromStore } from '../../../../actions/index'
+import { addDishPriceToStore, addDishNameToStore, addDishToStore, collectiveCheckedToStore, showDelete, hideDelete, deleteFromStore } from '../../../../actions/index'
 
 
 class Member extends Component {
@@ -26,6 +26,12 @@ class Member extends Component {
     console.log('object');
     const memberId = this.props.memberId;
     this.props.showDelete(index, memberId);
+  }
+
+  hideDeleteHandler = index => {
+    console.log('object');
+    const memberId = this.props.memberId;
+    this.props.hideDelete(index, memberId);
   }
 
   deleteHandler = (index) => {
@@ -93,8 +99,8 @@ class Member extends Component {
                         );
                         case true: return (
                           <div className='Show-delete'>
-                            <div onClick={() => this.deleteHandler(index)} className='Delete'> Delete?</div>
-                            <div>Cancel</div>
+                            <div onClick={() => this.deleteHandler(index)} className='Delete'> Delete</div>
+                            <div onClick={() => this.hideDeleteHandler(index)} className='Delete'>Cancel</div>
                           </div>
                         )
                       }
@@ -168,7 +174,10 @@ const MapDispatchToProps = dispatch => {
       dispatch(showDelete(index, memberId)),
 
     deleteFromStore: (index, memberId) =>
-      dispatch(deleteFromStore(index, memberId))
+      dispatch(deleteFromStore(index, memberId)),
+
+    hideDelete: (index, memberId) =>
+      dispatch(hideDelete(index, memberId))
   };
 };
 

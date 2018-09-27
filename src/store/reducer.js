@@ -170,18 +170,6 @@ const reducer = (state = initialState, action) => {
           return {
             ...check,
             collectiveDishes: check.collectiveDishes.filter((dish, index) => index !== action.dishId)
-
-
-                  //   if (memberIndex === action.memberId) {
-                  //     console.log('delete')
-                  //     return {
-                  //       ...member,
-                  //       dishes: member.dishes.filter((dish, index) => index !== action.dishId)
-                  //     }
-                  //   }
-                  //   return member;
-                  // });
-               
           };
         }
         return check;
@@ -299,6 +287,33 @@ const reducer = (state = initialState, action) => {
       ...state,
       // dishId: state.dishId + 1,
       checks: remappedCollectiveDelete
+    };
+
+    case 'HIDE_DELETE_COLLECTIVE':
+    const remappedCollectiveHideDelete = state.checks.map((check, checkIndex) => {
+      if (checkIndex === state.checkId - 1) {
+
+        const remappedCollectiveHideDeleteInternal = check.collectiveDishes.map((dish, index) => {
+          if (index === action.dishId) {
+            return {
+              ...dish,
+              showDelete: false
+            }
+          }
+          return dish;
+        });
+        return {
+          ...check,
+          collectiveDishes: remappedCollectiveHideDeleteInternal
+        };
+      }
+      return check;
+    });
+
+    return {
+      ...state,
+      // dishId: state.dishId + 1,
+      checks: remappedCollectiveHideDelete
     };
 
     case 'ADD_COLLECTIVE_NAME':
@@ -433,6 +448,47 @@ const reducer = (state = initialState, action) => {
         ...state,
         dishId: state.dishId + 1,
         checks: remappedDishesDelete
+      };
+
+      case 'HIDE_DELETE':
+      const remappedDishesHideDelete = state.checks.map((check, checkIndex) => {
+        if (checkIndex === state.checkId - 1) {
+          const remappedDishesHideDeleteMembers = check.members.map((member, memberIndex) => {
+            if (memberIndex === action.memberId) {
+              // console.log(action.dishName)
+              // console.log(action.dishId)
+              const remappedDishesHideDeleteInternal = member.dishes.map((dish, dishIndex) => {
+                if (dishIndex === action.dishId) {
+                  return {
+
+                    ...dish,
+                    showDelete: false
+
+                  }
+                }
+                return dish
+
+              })
+              return {
+                ...member,
+                dishes: remappedDishesHideDeleteInternal
+              }
+            }
+            return member
+          });
+
+          return {
+            ...check,
+            members: remappedDishesHideDeleteMembers
+          };
+        }
+        return check;
+      });
+
+      return {
+        ...state,
+        dishId: state.dishId + 1,
+        checks: remappedDishesHideDelete
       };
 
       case 'DELETE_DISH':

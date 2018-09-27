@@ -80,6 +80,12 @@ export const showDelete = (index, memberId)=> ({
   memberId: memberId
 })
 
+export const hideDelete = (index, memberId)=> ({
+  type: "HIDE_DELETE",
+  dishId: index,
+  memberId: memberId
+})
+
 export const deleteFromStore = (index, memberId)=> ({
   type: "DELETE_DISH",
   dishId: index,
@@ -94,5 +100,10 @@ export const deleteCollectiveFromStore = (index, memberId)=> ({
 
 export const showDeleteCollective = index => ({
   type: "SHOW_DELETE_COLLECTIVE",
+  dishId: index
+})
+
+export const hideDeleteCollective = index => ({
+  type: "HIDE_DELETE_COLLECTIVE",
   dishId: index
 })

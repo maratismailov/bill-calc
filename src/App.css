@@ -211,7 +211,7 @@
 .Old-check-member1 {
   margin: 0px;
   padding: 5px;
-  padding-bottom: 25px;
+  /* padding-bottom: 25px; */
   margin-bottom: 0px;
   margin-top: 0px;
   margin-left: 0px;
@@ -221,7 +221,7 @@
 .Old-check-member2 {
   margin: 0px;
   padding: 5px;
-  padding-bottom: 25px;
+  /* padding-bottom: 25px; */
   margin-bottom: 0px;
   margin-top: 0px;
   margin-left: 0px;
@@ -288,7 +288,7 @@
 .Old-check-bottom {
   margin: 0px;
   padding: 5px;
-  padding-bottom: 25px;
+  /* padding-bottom: 25px; */
   margin-bottom: 0px;
   margin-top: 0px;
   margin-left: 0px;

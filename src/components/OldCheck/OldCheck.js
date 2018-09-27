@@ -53,13 +53,13 @@ class OldCheck extends Component {
               )
             }
           )}
-          <div>
+        </div>
+        <div>
             Service Charge: {this.props.checks[this.props.currentCheckIndex].serviceCharge}
           </div>
           <div>
             Check Total Sum: {(this.props.checks[this.props.currentCheckIndex].checkTotalSum).toFixed(2)}
           </div>
-        </div>
       </div>
     );
 

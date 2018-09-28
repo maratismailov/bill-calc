@@ -18,6 +18,20 @@ const reducer = (state = initialState, action) => {
         oldCheckIndex: action.oldCheckIndex
       };
 
+    case 'DELETE_EMPTY':
+      return {
+        ...state,
+        checks: state.checks.filter((check, index) => check.checkTotalSum !== 0 && action.id !== index),
+        // checkId: state.checks.length
+      }
+
+    case 'SET_CHECK_ID':
+      return {
+        ...state,
+        // checks: state.checks.filter((check, index) => check.checkTotalSum !== 0 && action.id !== index),
+        checkId: state.checks.length
+      }
+
     case "ADD_CHECK":
       state.checkTotalSum = 0;
       // const remappedChecks = JSON.parse(JSON.stringify(state.checks));
@@ -102,7 +116,8 @@ const reducer = (state = initialState, action) => {
                   dishes: [
                     {
                       dish: action.member,
-                      price: ''
+                      price: '',
+                      showDelete: false
                     },
                   ],
                   memberId: state.memberId,
@@ -164,7 +179,7 @@ const reducer = (state = initialState, action) => {
         // dishId:1
       };
 
-      case "DELETE_COLLECTIVE":
+    case "DELETE_COLLECTIVE":
       const remappedDeleteCollective = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
           return {
@@ -180,7 +195,7 @@ const reducer = (state = initialState, action) => {
         checks: remappedDeleteCollective,
         // dishId:1
       };
-    
+
 
     case 'COLLECTIVE_CHECKED':
       const remappedCollectiveChecked = state.checks.map((check, checkIndex) => {
@@ -263,58 +278,58 @@ const reducer = (state = initialState, action) => {
     // };
 
     case 'SHOW_DELETE_COLLECTIVE':
-    const remappedCollectiveDelete = state.checks.map((check, checkIndex) => {
-      if (checkIndex === state.checkId - 1) {
+      const remappedCollectiveDelete = state.checks.map((check, checkIndex) => {
+        if (checkIndex === state.checkId - 1) {
 
-        const remappedCollectiveDeleteInternal = check.collectiveDishes.map((dish, index) => {
-          if (index === action.dishId) {
-            return {
-              ...dish,
-              showDelete: true
+          const remappedCollectiveDeleteInternal = check.collectiveDishes.map((dish, index) => {
+            if (index === action.dishId) {
+              return {
+                ...dish,
+                showDelete: true
+              }
             }
-          }
-          return dish;
-        });
-        return {
-          ...check,
-          collectiveDishes: remappedCollectiveDeleteInternal
-        };
-      }
-      return check;
-    });
+            return dish;
+          });
+          return {
+            ...check,
+            collectiveDishes: remappedCollectiveDeleteInternal
+          };
+        }
+        return check;
+      });
 
-    return {
-      ...state,
-      // dishId: state.dishId + 1,
-      checks: remappedCollectiveDelete
-    };
+      return {
+        ...state,
+        // dishId: state.dishId + 1,
+        checks: remappedCollectiveDelete
+      };
 
     case 'HIDE_DELETE_COLLECTIVE':
-    const remappedCollectiveHideDelete = state.checks.map((check, checkIndex) => {
-      if (checkIndex === state.checkId - 1) {
+      const remappedCollectiveHideDelete = state.checks.map((check, checkIndex) => {
+        if (checkIndex === state.checkId - 1) {
 
-        const remappedCollectiveHideDeleteInternal = check.collectiveDishes.map((dish, index) => {
-          if (index === action.dishId) {
-            return {
-              ...dish,
-              showDelete: false
+          const remappedCollectiveHideDeleteInternal = check.collectiveDishes.map((dish, index) => {
+            if (index === action.dishId) {
+              return {
+                ...dish,
+                showDelete: false
+              }
             }
-          }
-          return dish;
-        });
-        return {
-          ...check,
-          collectiveDishes: remappedCollectiveHideDeleteInternal
-        };
-      }
-      return check;
-    });
+            return dish;
+          });
+          return {
+            ...check,
+            collectiveDishes: remappedCollectiveHideDeleteInternal
+          };
+        }
+        return check;
+      });
 
-    return {
-      ...state,
-      // dishId: state.dishId + 1,
-      checks: remappedCollectiveHideDelete
-    };
+      return {
+        ...state,
+        // dishId: state.dishId + 1,
+        checks: remappedCollectiveHideDelete
+      };
 
     case 'ADD_COLLECTIVE_NAME':
       const remappedCollectiveNames = state.checks.map((check, checkIndex) => {
@@ -450,7 +465,7 @@ const reducer = (state = initialState, action) => {
         checks: remappedDishesDelete
       };
 
-      case 'HIDE_DELETE':
+    case 'HIDE_DELETE':
       const remappedDishesHideDelete = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
           const remappedDishesHideDeleteMembers = check.members.map((member, memberIndex) => {
@@ -491,7 +506,7 @@ const reducer = (state = initialState, action) => {
         checks: remappedDishesHideDelete
       };
 
-      case 'DELETE_DISH':
+    case 'DELETE_DISH':
       const remappedDishesDeleteItem = state.checks.map((check, checkIndex) => {
         if (checkIndex === state.checkId - 1) {
 

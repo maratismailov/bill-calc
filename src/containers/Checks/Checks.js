@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Check from "./Check/Check";
 import ChecksList from "./ChecksList/ChecksList";
 import OldCheck from '../../components/OldCheck/OldCheck';
-import { passOldCheckIndexToStore, addCheckToStore } from '../../actions/index'
+import { passOldCheckIndexToStore, addCheckToStore, deleteEmptyChecksFromStore, setCheckIdToStore } from '../../actions/index'
 
 class Checks extends Component {
   addCheckHandler = id => {
@@ -15,6 +15,20 @@ class Checks extends Component {
     this.props.passOldCheckIndexToStore(index);
     console.log(index)
   };
+
+  componentDidUpdate = () => {
+    // console.log(this.props.checks);
+    const checkId = this.props.checkId;
+    // if (localStorage.reduxState.c)
+    // localStorage.reduxState.checks.filter((check, index) => check.checkTotalSum !==0)
+    // dishes: member.dishes.filter((dish, index) => index !== action.dishId)
+    // this.props.deleteEmptyChecksFromStore(checkId)
+  }
+  deleteEmptyCheckHandler = () => {
+    const checkId = this.props.checkId;
+    this.props.deleteEmptyChecksFromStore(checkId)
+    this.props.setCheckIdToStore()
+  }
 
   render() {
     return (
@@ -62,6 +76,9 @@ class Checks extends Component {
 
               <button type="button" className="Add-check" onClick={() => localStorage.clear()}>
                 Purge state
+              </button>
+              <button type="button" className="Add-check" onClick={() => this.deleteEmptyCheckHandler()}>
+                Delete empty
               </button>
             </div>
           )}
@@ -135,11 +152,10 @@ const MapStateToProps = state => {
 
 const MapDispatchToProps = dispatch => {
   return {
-    // addCheckToStore: () => dispatch({ type: "ADD_CHECK", check: singleCheck }),
     addCheckToStore: () => dispatch(addCheckToStore(singleCheck, collectiveDishes)),
-    // passOldCheckIndexToStore: (index) => dispatch({ type: "OLD_CHECK", OldCheckIndex: index }),
-    // toggleTodo: id => dispatch(toggleTodo(id)),
     passOldCheckIndexToStore: index => dispatch(passOldCheckIndexToStore(index)),
+    deleteEmptyChecksFromStore: checkId => dispatch(deleteEmptyChecksFromStore(checkId)),
+    setCheckIdToStore: () => dispatch(setCheckIdToStore())
   };
 };
 

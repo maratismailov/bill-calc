@@ -122,7 +122,7 @@ class Member extends Component {
                     defaultChecked={dish.members[this.props.memberId].checked}
                     value={dish.members[this.props.memberId].checked}
                   />
-                  <label className="label" for="1">{dish.collectiveDishName}</label>
+                  <label className="label">{dish.collectiveDishName}</label>
                   {/* {dish.collectiveDishName} */}
                 </div>
               )

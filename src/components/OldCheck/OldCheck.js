@@ -26,6 +26,7 @@ class OldCheck extends Component {
 
                 {member.dishes.map(
                   (dish, index) => {
+                    if (dish.price === '') return;
                     return (
                       <div key={index}>
                         {dish.dish} {' '}

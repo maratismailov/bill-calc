@@ -107,3 +107,12 @@ export const hideDeleteCollective = index => ({
   type: "HIDE_DELETE_COLLECTIVE",
   dishId: index
 })
+
+export const deleteEmptyChecksFromStore = checkId => ({
+  type: 'DELETE_EMPTY',
+  id: checkId
+})
+
+export const setCheckIdToStore = () => ({
+  type: 'SET_CHECK_ID'
+})
